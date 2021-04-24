@@ -20,18 +20,18 @@ public class Block : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Tool")
-        {
-            health--;
-            if (health < 1)
-            {
-                //TODO: Gives points to player that killed it - gameobject that holds the tool.
-                Destroy(gameObject);
-            }
-        }
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "Tool")
+    //    {
+    //        health--;
+    //        if (health < 1)
+    //        {
+    //            //TODO: Gives points to player that killed it - gameobject that holds the tool.
+    //            Destroy(gameObject);
+    //        }
+    //    }
+    //}
 
 }
 

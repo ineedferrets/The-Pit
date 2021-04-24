@@ -28,7 +28,7 @@ public class PickaxeBehaviour : MonoBehaviour
         if (mine)
         {
             float difference = endRotationX - startRotationX;
-            transform.localRotation = Quaternion.AngleAxis(startRotationX + ((Mathf.Sin(3 * Time.time) / 2 + 0.5f) * difference), Vector3.right);
+            transform.localRotation = Quaternion.AngleAxis(startRotationX + ((Mathf.Sin(speed * Time.time) / 2 + 0.5f) * difference), Vector3.right);
         }
     }
 
@@ -49,16 +49,16 @@ public class PickaxeBehaviour : MonoBehaviour
         ResetPick();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Ground")
         {
-            Block block = collision.gameObject.GetComponent<Block>();
+            Block block = other.gameObject.GetComponent<Block>();
             block.health--;
             if (block.health < 1)
             {
                 //TODO: Gives points to player that killed it - gameobject that holds the tool.
-                Destroy(gameObject);
+                Destroy(other.gameObject);
             }
         }
 
