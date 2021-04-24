@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickaxeBehaviour : MonoBehaviour
 {
-    public int speed = 5;
+    public int speed = 40;
     public bool mine;
     
     private float startRotationX;
