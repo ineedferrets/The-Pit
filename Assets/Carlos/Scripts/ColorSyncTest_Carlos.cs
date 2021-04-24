@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Normal.Realtime;
 
 public class ColorSyncTest_Carlos : MonoBehaviour
 {
@@ -13,20 +14,29 @@ public class ColorSyncTest_Carlos : MonoBehaviour
     private bool _isColorInit;
 
     [SerializeField]
-    private float _speed = 0.1f;
+    private float _speed = 3f;
 
     [SerializeField]
     private Quaternion _rotation = default;
     private Quaternion _previousRotation = default;
 
+    // Used to check ownership
+    private RealtimeView _realtimeView;
+
     private void Awake()
     {
-        // Get a reference to the color sync component
+        // Get a reference to the color sync component 
         _colorSync = GetComponent<ColorSync_Carlos>();
+        _realtimeView = GetComponent<RealtimeView>();
     }
 
     private void Update()
     {
+        // If this Player prefab is not owned by this client, bail.
+        if (!_realtimeView.isOwnedLocallySelf)
+            return;
+
+
         // init with a random color
         if (!_isColorInit)
         {
