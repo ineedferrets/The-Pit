@@ -182,6 +182,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6510522086123694335, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
 --- !u!1 &705507993
@@ -378,6 +382,9 @@ MonoBehaviour:
   length: 10
   targetPosition: {x: -4.082483, y: 9.164966, z: -4.082483}
   speed: 3
+  Target: {fileID: 1080870880}
+  Player: {fileID: 1080870880}
+  Obstruction: {fileID: 0}
 --- !u!4 &1080870880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6510522086123694310, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
