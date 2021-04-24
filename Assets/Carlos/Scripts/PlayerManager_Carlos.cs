@@ -6,6 +6,8 @@ using Normal.Realtime;
 public class PlayerManager_Carlos : MonoBehaviour
 {
     private Realtime _realtime;
+    [SerializeField]
+    private string _prefabName;
 
     private void Awake()
     {
@@ -19,7 +21,7 @@ public class PlayerManager_Carlos : MonoBehaviour
     private void DidConnectToRoom(Realtime realtime)
     {
         // Instantiate the My Player prefab for this client once we've successfully connected to the room
-        Realtime.Instantiate("Player_Carlos",      // Prefab name
+        Realtime.Instantiate(_prefabName,      // Prefab name
                                  ownedByClient: true,      // Make sure the RealtimeView on this prefab is owned by this client
                       preventOwnershipTakeover: true,      // Prevent other clients from calling RequestOwnership() on the root RealtimeView or any children.
             destroyWhenOwnerOrLastClientLeaves: true,      // Instruct the server to destroy this prefab when the owner (this client) disconnects. (This is true by default, but added to the example for clarity)

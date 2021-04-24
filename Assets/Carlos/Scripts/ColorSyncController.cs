@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Normal.Realtime;
 
-public class ColorSync_Carlos : RealtimeComponent<ColorSyncModel_Carlos>
+public class ColorSyncController : RealtimeComponent<ColorSyncModel_Carlos>
 {
     #region Variables
 

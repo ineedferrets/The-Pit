@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cutout : MonoBehaviour
 {
-	[SerializeField] private Transform targetObject;
+	[SerializeField] public Transform targetObject;
 	[SerializeField] private LayerMask wallMask;
 	[SerializeField] private float cutoutSize, falloffSize;
 

@@ -24,6 +24,37 @@ public class PlayerMovement : MonoBehaviour
 			playerCamera = GetComponentInChildren<Camera>();
 		if (pickaxe == null)
 			pickaxe = GetComponentInChildren<PickaxeBehaviour>();
+
+		// Attempt again to get the camera from the scene if it didn't work at first from children
+		if (playerCamera == null)
+		{
+			playerCamera = Camera.main;
+            // If we finally found the camera...
+            if (playerCamera != null)
+            {
+				// Assign this object's transform as the target to follow from the camera
+				var cameraScript = playerCamera.GetComponent<CameraFollow>();
+				if (cameraScript != null)
+				{
+					if (cameraScript.targetTransform == null)
+						cameraScript.targetTransform = this.transform;
+
+					
+					
+				}
+
+				// also assign it to target cutout
+				var cutoutScript = playerCamera.GetComponent<Cutout>();
+				if (cutoutScript != null)
+				{
+					if (cutoutScript.targetObject == null)
+						cutoutScript.targetObject = this.transform;
+
+				}
+
+			}
+		}
+
 	}
 
 	void Update()
