@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float speed;
 
 
-    public Transform Target, Player;
+    public Transform Target;
     public Transform Obstruction;
 
     float zoomSpeed = 2f;
