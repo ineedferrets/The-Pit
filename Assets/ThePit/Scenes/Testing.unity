@@ -130,6 +130,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 948173358523819768, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92387956
+      objectReference: {fileID: 0}
+    - target: {fileID: 948173358523819768, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 948173358523819768, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -45
+      objectReference: {fileID: 0}
     - target: {fileID: 6510522086123694310, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -382,9 +394,6 @@ MonoBehaviour:
   length: 10
   targetPosition: {x: -4.082483, y: 9.164966, z: -4.082483}
   speed: 3
-  Target: {fileID: 1080870880}
-  Player: {fileID: 1080870880}
-  Obstruction: {fileID: 0}
 --- !u!4 &1080870880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6510522086123694310, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}

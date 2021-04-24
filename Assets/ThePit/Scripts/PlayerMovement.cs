@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
 	[SerializeField] private Camera playerCamera;
     [SerializeField] private PlayerInput playerInput;
+	[SerializeField] private PickaxeBehaviour pickaxe;
 	[SerializeField] private Rigidbody rb;
 
 	private void Awake()
@@ -21,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 			rb = GetComponent<Rigidbody>();
 		if (playerCamera == null)
 			playerCamera = GetComponentInChildren<Camera>();
+		if (pickaxe == null)
+			pickaxe = GetComponentInChildren<PickaxeBehaviour>();
 	}
 
 	void Update()
@@ -48,6 +51,15 @@ public class PlayerMovement : MonoBehaviour
 		{
 			rb.AddForce(Vector3.up * jumpForce);
 		}
+
+		if (playerInput.mineInputDown)
+        {
+			pickaxe.Mine();
+        }
+		else
+        {
+			pickaxe.StopMining();
+        }
     }
 
 	private Vector3 calculateMovementDirection(PlayerInput input, Camera camera)
