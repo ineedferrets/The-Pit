@@ -10,6 +10,8 @@ public class ColorSyncTest_Carlos : MonoBehaviour
 
     private ColorSync_Carlos _colorSync;
 
+    private bool _isColorInit;
+
     [SerializeField]
     private float _speed = 0.1f;
 
@@ -25,6 +27,19 @@ public class ColorSyncTest_Carlos : MonoBehaviour
 
     private void Update()
     {
+        // init with a random color
+        if (!_isColorInit)
+        {
+            _color = new Color(
+                Random.Range(0f, 1f),
+                Random.Range(0f, 1f),
+                Random.Range(0f, 1f)
+                );
+            _colorSync.SetColor(_color);
+            _previousColor = _color;
+            _isColorInit = true;
+        }
+
         // If the color has changed (via the inspector), call SetColor on the color sync component.
         if (_color != _previousColor)
         {
