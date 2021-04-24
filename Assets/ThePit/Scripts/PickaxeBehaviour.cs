@@ -49,4 +49,19 @@ public class PickaxeBehaviour : MonoBehaviour
         ResetPick();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            Block block = collision.gameObject.GetComponent<Block>();
+            block.health--;
+            if (block.health < 1)
+            {
+                //TODO: Gives points to player that killed it - gameobject that holds the tool.
+                Destroy(gameObject);
+            }
+        }
+
+    }
+
 }

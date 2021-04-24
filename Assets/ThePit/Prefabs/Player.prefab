@@ -60,6 +60,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c726ad2d5126047baaaf9e6a6c2b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
+  mine: 0
 --- !u!1 &3469528590243119960
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +122,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7fa4440da5bc07c4d87883f76b33d85e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -398,6 +400,7 @@ MonoBehaviour:
   jumpForce: 400
   playerCamera: {fileID: 0}
   playerInput: {fileID: 6510522086123694333}
+  pickaxe: {fileID: 0}
   rb: {fileID: 6510522086123694306}
 --- !u!1 &9140962595096640223
 GameObject:
@@ -459,7 +462,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ea1e65c6848b19c44ae84542468b23cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
