@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Normal.Realtime;
 
 public class Block : MonoBehaviour
 {
@@ -11,9 +12,13 @@ public class Block : MonoBehaviour
     [SerializeField]
     private int _health = 3;
 
-    private void OnDestroy()
+    // Realtime references
+    private RealtimeHealth _realtimeHealth;
+
+    private void Awake()
     {
-        
+        // Get reference to realtimeview
+        _realtimeHealth = GetComponent<RealtimeHealth>();
     }
 
     //private void OnCollisionEnter(Collision collision)
@@ -41,13 +46,21 @@ public class Block : MonoBehaviour
 
     private void SetHealth(int newHealth)
     {
+        bool destroyBlock = false;
+
         _health = newHealth;
+
         if (_health <= 0)
         {
             _health = 0;
-            DestroyBlock();
+            destroyBlock = true;
         }
 
+        // Attempt to sync network
+        if (_realtimeHealth != null)
+            _realtimeHealth.SetHealth(_health);
+
+        // Update drawing before destroying
         if (health >= 3)
             GetComponent<Renderer>().material.SetFloat("_BlendAmount", 0.0f);
         else if (health == 2)
@@ -55,23 +68,23 @@ public class Block : MonoBehaviour
         else if (health == 1)
             GetComponent<Renderer>().material.SetFloat("_BlendAmount", 1.0f);
 
+        // Do we need to destroy block?
+        if (destroyBlock)
+            DestroyBlock();
+
     }
 
     protected virtual void DestroyBlock()
     {
-        var terrainGenerator = transform.parent.GetComponent<GenerateTerrain>();
-        if (terrainGenerator != null)
+        if (_realtimeHealth != null)
         {
-            if (terrainGenerator.replicateInNetwork)
-            {
-                Normal.Realtime.Realtime.Destroy(this.gameObject);
-
-            }
-            else
-            {
-                Destroy(this.gameObject);
-            }
+            Realtime.Destroy(this.gameObject);
         }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
     }
 }
 

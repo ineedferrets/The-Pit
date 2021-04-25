@@ -109,6 +109,7 @@ public class RealtimeHealth : RealtimeComponent<BlockHealthSyncModel>
         // Set the value on the model
         // this will fire the valueChanged event on the model, which will update the value for both the local player and all remote players
         model.health = health;
+
     }
 
 

@@ -208,7 +208,13 @@ public class GenerateTerrain : MonoBehaviour
     {
         if (_replicateInNetwork)
         {
-            UpdateGenerationFlags(_realtimeGenerateTerrain);
+            // Attempt to get ownership...
+            _realtimeGenerateTerrain.RequestOwnership();
+            // If we don't own the generator, bail
+            if (!_realtimeGenerateTerrain.isOwnedLocallySelf)
+                return;
+
+            UpdateGenerationFlags(_realtimeGenerateTerrain);            
             GenerateChestPos();
             GenerateFloor(_replicateInNetwork);
         }

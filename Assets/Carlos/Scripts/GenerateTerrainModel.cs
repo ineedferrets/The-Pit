@@ -4,7 +4,7 @@ using UnityEngine;
 using Normal.Realtime;
 using Normal.Realtime.Serialization;
 
-[RealtimeModel]
+[RealtimeModel(createMetaModel: true)]
 public partial class GenerateTerrainModel 
 {
     [RealtimeProperty(1, true, true)]
@@ -61,7 +61,7 @@ public partial class GenerateTerrainModel : RealtimeModel {
     public GenerateTerrainModel() : this(null) {
     }
     
-    public GenerateTerrainModel(RealtimeModel parent) : base(null, parent) {
+    public GenerateTerrainModel(RealtimeModel parent) : base(new MetaModel(), parent) {
     }
     
     protected override void OnParentReplaced(RealtimeModel previousParent, RealtimeModel currentParent) {
@@ -85,7 +85,7 @@ public partial class GenerateTerrainModel : RealtimeModel {
     }
     
     protected override int WriteLength(StreamContext context) {
-        int length = 0;
+        int length = MetaModelWriteLength(context);
         if (context.fullModel) {
             FlattenCache();
             length += WriteStream.WriteVarint32Length((uint)PropertyID.GenerationStarted, _generationStarted ? 1u : 0u);
@@ -103,6 +103,8 @@ public partial class GenerateTerrainModel : RealtimeModel {
     }
     
     protected override void Write(WriteStream stream, StreamContext context) {
+        WriteMetaModel(stream, context);
+        
         var didWriteProperties = false;
         
         if (context.fullModel) {
@@ -130,6 +132,10 @@ public partial class GenerateTerrainModel : RealtimeModel {
     protected override void Read(ReadStream stream, StreamContext context) {
         while (stream.ReadNextPropertyID(out uint propertyID)) {
             switch (propertyID) {
+                case MetaModel.ReservedPropertyID: {
+                    ReadMetaModel(stream, context);
+                    break;
+                }
                 case (uint)PropertyID.GenerationStarted: {
                     bool previousValue = _generationStarted;
                     _generationStarted = (stream.ReadVarint32() != 0);
