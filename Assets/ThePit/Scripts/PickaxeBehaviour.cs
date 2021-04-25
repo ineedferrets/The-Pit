@@ -21,7 +21,11 @@ public class PickaxeBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<Manager>();
+        var managerGo = GameObject.FindGameObjectWithTag("Manager");
+        if (managerGo != null)
+            manager = managerGo.GetComponent<Manager>();
+        else
+            Debug.LogError("Manager not found!");
         caughtTreasure = false;
 
         initialRotation = transform.localRotation;
@@ -29,7 +33,8 @@ public class PickaxeBehaviour : MonoBehaviour
         endRotationX = 35f;
         ResetPick();
         source = GetComponent<AudioSource>();
-        pitch = source.pitch;
+        if (source != null)
+            pitch = source.pitch;
     }
 
     // Update is called once per frame
@@ -66,8 +71,15 @@ public class PickaxeBehaviour : MonoBehaviour
             Block block = other.gameObject.GetComponent<Block>();
             if (block != null && block.canDestroy)
             {
-                source.Play();
-                source.pitch = pitch + Random.Range(-0.5f, 0.5f);
+                if (source != null)
+                {
+                    source.Play();
+                    source.pitch = pitch + Random.Range(-0.5f, 0.5f);
+                }
+                else
+                {
+                    Debug.LogError("audiosource not present in player!");
+                }
 
                 block.health--; // this updates the block internal logic as well
                 if (block.health < 1)
@@ -83,7 +95,8 @@ public class PickaxeBehaviour : MonoBehaviour
             {
                 caughtTreasure = true;
                 GameObject player = gameObject.transform.parent.gameObject;
-                manager.PlayerCaughtTreasure(player);
+                if (manager != null)
+                    manager.PlayerCaughtTreasure(player);
                 block.AddHealth(-5);
               
             }
