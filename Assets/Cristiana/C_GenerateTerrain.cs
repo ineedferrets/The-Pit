@@ -13,6 +13,7 @@ public class C_GenerateTerrain : MonoBehaviour
     public int bedrockStartPoint, bedrockSecondLayer;
 
     private int chest_x, chest_y, chest_z;
+    Manager manager;
 
     /// <summary>
     /// Replicates in the network the cube spawning
@@ -52,6 +53,8 @@ public class C_GenerateTerrain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<Manager>();
+
         // Generate floor on start only when not in networking
         if (!_replicateInNetwork)
             GenerateChestPos();
@@ -66,6 +69,7 @@ public class C_GenerateTerrain : MonoBehaviour
         GameObject wallE = Instantiate(wallNormal, new Vector3(x_max+1, 0, 0), Quaternion.identity);
         wallE.transform.Rotate(0, 90, 0);
 
+        manager.createPlayer(0, 3, 0);
     }
 
     // Update is called once per frame
