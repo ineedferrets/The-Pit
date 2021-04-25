@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameLogicScript : MonoBehaviour
+public class GameLogicScript_Marko : MonoBehaviour
 {
     
-    private static GameLogicScript _instance;
+    private static GameLogicScript_Marko _instance;
 
-    public static GameLogicScript Instance { get { return _instance; } }
+    public static GameLogicScript_Marko Instance { get { return _instance; } }
 
 
+    public string PlayerName;
+    public Color PlayerColor;
 
     void Awake()
     {

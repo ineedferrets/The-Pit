@@ -5,13 +5,15 @@ using Normal.Realtime;
 
 public class PlayerSyncScript : RealtimeComponent<PlayerSyncModel>
 {
-    public MeshRenderer MeshRenderer;
 
+    private MeshRenderer _meshRenderer;
+    private Transform transform;
 
-    protected void Awake()
+    private void Awake()
     {
-     
+        _meshRenderer = GetComponent<MeshRenderer>();
     }
+
     protected override void OnRealtimeModelReplaced(PlayerSyncModel previousModel, PlayerSyncModel currentModel)
     {
         if (previousModel != null)
@@ -23,13 +25,13 @@ public class PlayerSyncScript : RealtimeComponent<PlayerSyncModel>
         {
             if (currentModel.isFreshModel)
             {
-                currentModel.color = MeshRenderer.material.color;
+                currentModel.color = _meshRenderer.material.color;
             }
+
+            UpdateMeshRendererColor();
+
+            currentModel.colorDidChange += ColorDidChange;
         }
-
-        UpdateMeshRendererColor();
-
-        currentModel.colorDidChange += ColorDidChange;
     }
 
     private void ColorDidChange(PlayerSyncModel model, Color value)
@@ -37,15 +39,9 @@ public class PlayerSyncScript : RealtimeComponent<PlayerSyncModel>
         UpdateMeshRendererColor();
     }
 
-    public void UpdateMeshRendererColor()
+    private void UpdateMeshRendererColor()
     {
-        MeshRenderer.material.color = model.color;
+        _meshRenderer.material.color = model.color;
     }
-
-    public void SetColor(Color color)
-    {
-        model.color = color;
-    }
-
 
 }
