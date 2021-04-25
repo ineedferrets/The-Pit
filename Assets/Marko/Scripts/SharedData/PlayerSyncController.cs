@@ -6,9 +6,12 @@ using Normal.Realtime;
 public class PlayerSyncController : RealtimeComponent<PlayerSyncModel>
 {
 
-    //set by PlayerScript_Marko.cs
     public MeshRenderer _meshRenderer = new MeshRenderer();
 
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     protected override void OnRealtimeModelReplaced(PlayerSyncModel previousModel, PlayerSyncModel currentModel)
     {
@@ -46,3 +49,4 @@ public class PlayerSyncController : RealtimeComponent<PlayerSyncModel>
     }
 
 }
+

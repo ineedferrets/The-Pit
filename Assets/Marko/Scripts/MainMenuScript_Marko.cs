@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuScript_Marko : MonoBehaviour
@@ -15,10 +14,29 @@ public class MainMenuScript_Marko : MonoBehaviour
     public Text _numberOfPlayersText;
     public Text _playerNamesText;
 
+
+    private static MainMenuScript_Marko _instance;
+    public static MainMenuScript_Marko Instance { get { return _instance; } }
+
+    void Awake()
+    {
+
+        if (Instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
     public void StartGame()
     {
         GameLogicScript_Marko.Instance.PlayerName = Username.text;
-        SceneManager.LoadScene("GameScene");
+        GameLogicScript_Marko.Instance.GoToGameScene();
     }
 
     public void SetColor()

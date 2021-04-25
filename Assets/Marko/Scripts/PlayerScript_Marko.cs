@@ -2,25 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Normal.Realtime;
-
 public class PlayerScript_Marko : MonoBehaviour
 {
 
     public Realtime _realtime;
 
-    // Start is called before the first frame update
+    private static PlayerScript_Marko _instance;
+    public static PlayerScript_Marko Instance { get { return _instance; } }
+
     void Awake()
     {
-        _realtime.didConnectToRoom += DidConnectToRoom;
-        
-    }
 
-    // Update is called once per frame
+        if (Instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+            _realtime.didConnectToRoom += DidConnectToRoom;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+           }
+
     private void DidConnectToRoom(Realtime realtime)
     {
+        
+        Vector3 position = new Vector3(Random.Range(-2f, 2f), Random.Range(0,4), Random.Range(-2,2));
+        
         // Instantiate the CubePlayer for this client once we've successfully connected to the room
-        GameObject player = Realtime.Instantiate("Player_Marko",                 // Prefab name
-                            position: Vector3.up,          // Start 1 meter in the air
+        GameObject player = Realtime.Instantiate("Player_Marko2",                 // Prefab name
+                            position: position,          // Start 1 meter in the air
                             rotation: Quaternion.identity, // No rotation
                        ownedByClient: true,                // Make sure the RealtimeView on this prefab is owned by this client
             preventOwnershipTakeover: true,                // Prevent other clients from calling RequestOwnership() on the root RealtimeView.
