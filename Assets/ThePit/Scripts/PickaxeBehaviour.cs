@@ -54,11 +54,21 @@ public class PickaxeBehaviour : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             Block block = other.gameObject.GetComponent<Block>();
-            block.health--;
-            if (block.health < 1)
+            if (block != null)
             {
-                //TODO: Gives points to player that killed it - gameobject that holds the tool.
-                Destroy(other.gameObject);
+                block.health--; // this updates the block internal logic as well
+                if (block.health < 1)
+                {
+                    //TODO: Gives points to player that killed it - gameobject that holds the tool.
+
+                    // Destroy is handled inside of the block for networking reasons now
+                    //Destroy(other.gameObject);
+                }
+
+            }
+            else
+            {
+                Debug.LogError("The block couldn't be found... even though it is there?");
             }
         }
 

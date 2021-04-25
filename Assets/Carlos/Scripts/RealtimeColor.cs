@@ -13,12 +13,12 @@ public class RealtimeColor : MonoBehaviour
 
     private bool _isColorInit;
 
-    [SerializeField]
-    private float _speed = 3f;
+    //[SerializeField]
+    //private float _speed = 3f;
 
-    [SerializeField]
-    private Quaternion _rotation = default;
-    private Quaternion _previousRotation = default;
+    //[SerializeField]
+    //private Quaternion _rotation = default;
+    //private Quaternion _previousRotation = default;
 
     // Used to check ownership
     private RealtimeView _realtimeView;
