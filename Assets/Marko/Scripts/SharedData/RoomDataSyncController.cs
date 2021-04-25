@@ -21,14 +21,17 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
             {
                 currentModel.numberOfPlayers = 0;
                 currentModel.playerNames = "";
+                currentModel.sceneName = "LobbyScene";
             }
 
+            
             UpdateNumberOfPlayers();
             UpdatePlayerNames();
-
+            //UpdateScene();
 
             currentModel.numberOfPlayersDidChange += NumberOfPlayersDidChange;
             currentModel.playerNamesDidChange += PlayerNamesDidChange;
+            currentModel.sceneNameDidChange += SceneNameDidChange;
         }
 
     }
@@ -40,13 +43,17 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
 
     private void PlayerNamesDidChange(RoomDataModel model, string value)
     {
-        UpdatePlayerNames();
+        //UpdatePlayerNames();
     }
 
+    private void SceneNameDidChange(RoomDataModel model, string value)
+    {
+        UpdateScene();
+    }
 
     private void UpdateNumberOfPlayers()
     {
-        LevelManagerScript_Marko.Instance.UIManagerScript.UpdateNumberOfPlayers(model.numberOfPlayers);
+        GameLogicScript_Marko.Instance.MainMenuScript.SetNumberOfPlayers(model.numberOfPlayers);
     }
 
 
@@ -58,7 +65,27 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
             names.Add(name);
         }
 
-        LevelManagerScript_Marko.Instance.UIManagerScript.UpdatePlayerNames(names);
+        GameLogicScript_Marko.Instance.MainMenuScript.SetPlayerNames(names);
+    }
+
+    private void UpdateScene()
+    {
+        switch (model.sceneName)
+        {
+            case "LobbyScene":
+                GameLogicScript_Marko.Instance.GoToLobby();
+                break;
+            case "GameScene":
+                GameLogicScript_Marko.Instance.GoToGameScene();
+                break;
+            case "GameOverScene":
+                GameLogicScript_Marko.Instance.GoToGameOverScene();
+                break;
+            default: 
+                Debug.Log("Unknown scene");  
+                break;
+        }
+        
     }
     public void IncreaseNumberOfPlayers()
     {
@@ -73,6 +100,11 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
     public void AddPlayerName(string name)
     {
         model.playerNames += name + ";";
+    }
+
+    public void SetSceneName(string name)
+    {
+        model.sceneName = name;
     }
 
 

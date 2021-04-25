@@ -37,7 +37,8 @@ public class CameraFollow : MonoBehaviour
 	void Update()
     {
         targetPosition = getMoveToPosition(targetTransform.position, relativeToTargetPosition, length);
-        transform.position = Vector3.Lerp(transform.position, targetPosition, speed);
+        //transform.position = Vector3.Lerp(transform.position, targetPosition, speed);
+        transform.position = targetPosition;
         transform.rotation = rotation;
     }
 

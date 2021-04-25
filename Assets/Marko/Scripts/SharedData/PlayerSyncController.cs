@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Normal.Realtime;
 
-public class PlayerSyncScript : RealtimeComponent<PlayerSyncModel>
+public class PlayerSyncController : RealtimeComponent<PlayerSyncModel>
 {
 
-    private MeshRenderer _meshRenderer;
-    private Transform transform;
+    public MeshRenderer _meshRenderer = new MeshRenderer();
 
-    private void Awake()
+    private void Start()
     {
-        _meshRenderer = GetComponent<MeshRenderer>();
+        DontDestroyOnLoad(gameObject);
     }
 
     protected override void OnRealtimeModelReplaced(PlayerSyncModel previousModel, PlayerSyncModel currentModel)
@@ -44,4 +43,10 @@ public class PlayerSyncScript : RealtimeComponent<PlayerSyncModel>
         _meshRenderer.material.color = model.color;
     }
 
+    public void SetPlayerColor(Color c)
+    {
+        model.color = c;
+    }
+
 }
+

@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.cyanilux.shadergraph-customlighting": {
+      "version": "https://github.com/Cyanilux/URP_ShaderGraphCustomLighting.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "acbb80dfc8f62c5b44a1618a40dd271d7f422931"
+    },
     "com.normalvr.normcore": {
       "version": "2.0.3",
       "depth": 0,
