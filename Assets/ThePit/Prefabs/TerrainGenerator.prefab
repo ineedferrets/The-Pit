@@ -44,10 +44,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorNormalBlock: {fileID: 8605606859762454194, guid: 4225334fee947664b84d44adbcdaa3ca, type: 3}
+  floorBedrockBlock: {fileID: 8605606859762454194, guid: f4100b236bbab2a459f605ecb1e15f8a, type: 3}
+  treasure: {fileID: 8605606859762454194, guid: 928812241d58d0e4e82a707d298a7da7, type: 3}
   wallNormal: {fileID: 742691898248278085, guid: f87efa8495b61234eb323de1ede9a0ea, type: 3}
   x_min: -10
   x_max: 10
-  y_min: -3
+  y_min: -10
   y_max: 0
   z_min: -10
   z_max: 10
+  bedrockStartPoint: -5
+  bedrockSecondLayer: -7
+  _replicateInNetwork: 0

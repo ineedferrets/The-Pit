@@ -365,6 +365,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9218164844314392224, guid: 06e587ad4ea37ea4a8399cc4d0ff2ebc, type: 3}
+      propertyPath: floorBedrockBlock
+      value: 
+      objectReference: {fileID: 8605606859762454194, guid: f4100b236bbab2a459f605ecb1e15f8a, type: 3}
     - target: {fileID: 9218164844314392225, guid: 06e587ad4ea37ea4a8399cc4d0ff2ebc, type: 3}
       propertyPath: m_RootOrder
       value: 1
