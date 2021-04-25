@@ -14,11 +14,16 @@ public class PickaxeBehaviour : MonoBehaviour
     private float pitch;
 
     private Quaternion initialRotation;
+    Manager manager;
+    private bool caughtTreasure;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<Manager>();
+        caughtTreasure = false;
+
         initialRotation = transform.localRotation;
         startRotationX = -45f;
         endRotationX = 35f;
@@ -73,6 +78,14 @@ public class PickaxeBehaviour : MonoBehaviour
                     //Destroy(other.gameObject);
                 }
 
+            }
+            else if (block != null && block.blockType==BlockType.Treasure && !caughtTreasure)
+            {
+                caughtTreasure = true;
+                GameObject player = gameObject.transform.parent.gameObject;
+                manager.PlayerCaughtTreasure(player);
+                block.AddHealth(-5);
+              
             }
             else
             {
