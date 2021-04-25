@@ -375,7 +375,27 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
+      propertyPath: x_max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
+      propertyPath: x_min
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
+      propertyPath: y_max
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
       propertyPath: y_min
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
+      propertyPath: z_max
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
+      propertyPath: z_min
       value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
@@ -392,11 +412,11 @@ PrefabInstance:
       objectReference: {fileID: 8605606859762454194, guid: f4100b236bbab2a459f605ecb1e15f8a, type: 3}
     - target: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
       propertyPath: bedrockSecondLayer
-      value: -7
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
       propertyPath: _replicateInNetwork
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
