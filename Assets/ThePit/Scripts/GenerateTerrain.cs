@@ -15,6 +15,15 @@ public class GenerateTerrain : MonoBehaviour
     Manager manager;
 
     /// <summary>
+    /// For networking, call RealtimeGenerateTerrain.SetGenerationStarted
+    /// </summary>
+    public bool generationStarted;
+    /// <summary>
+    /// For networking, call RealtimeGenerateTerrain.SetGenerationCompleted
+    /// </summary>
+    public bool generationCompleted;
+
+    /// <summary>
     /// Replicates in the network the cube spawning
     /// </summary>
     public bool replicateInNetwork { get; }
@@ -29,6 +38,12 @@ public class GenerateTerrain : MonoBehaviour
     /// </summary>
     private Realtime _realtime;
 
+    /// <summary>
+    /// Handles sync of generate terrain info
+    /// </summary>
+    private RealtimeGenerateTerrain _realtimeGenerateTerrain;
+
+
     // Called before start
     private void Awake()
     {
@@ -41,6 +56,14 @@ public class GenerateTerrain : MonoBehaviour
             {
                 // Notify us when Realtime successfully connects to the room
                 _realtime.didConnectToRoom += DidConnectToRoom;
+
+            }
+
+            // Get ref for syncing
+            _realtimeGenerateTerrain = GetComponent<RealtimeGenerateTerrain>();
+            if (_realtimeGenerateTerrain != null)
+            {
+                // Nothing here?
 
             }
 
@@ -86,6 +109,16 @@ public class GenerateTerrain : MonoBehaviour
 
     private void GenerateFloor(bool replicate = false)
     {
+        // If somehow, the generation has started or is completed (maybe by another client over the network), bail
+        if (generationStarted || generationCompleted)
+            return;
+
+        // If we are the first to generate terrain, mark the generation as started
+        if (replicate && _realtimeGenerateTerrain)
+            _realtimeGenerateTerrain.SetGenerationStarted(true);
+        else
+            generationStarted = true;
+
         for (int x = x_min; x <= x_max; x++)
         {
             for (int y = y_min; y <= y_max; y++)
@@ -124,6 +157,12 @@ public class GenerateTerrain : MonoBehaviour
                 }
             }
         }
+
+        // Mark the generation as finished
+        if (replicate && _realtimeGenerateTerrain)
+            _realtimeGenerateTerrain.SetGenerationCompleted(true);
+        else
+            generationCompleted = true;
 
     }
 
@@ -169,8 +208,22 @@ public class GenerateTerrain : MonoBehaviour
     {
         if (_replicateInNetwork)
         {
+            UpdateGenerationFlags(_realtimeGenerateTerrain);
             GenerateChestPos();
             GenerateFloor(_replicateInNetwork);
+        }
+    }
+
+    private void UpdateGenerationFlags(RealtimeGenerateTerrain realtimeGenerator)
+    {
+        if (realtimeGenerator != null)
+        {
+            generationStarted = realtimeGenerator.GetGenerationStarted();
+            generationCompleted = realtimeGenerator.GetGenerationCompleted();
+        }
+        else
+        {
+            Debug.LogError("Attepmting to update terrain generation flags but realtimeGenerator not found!");
         }
     }
 
