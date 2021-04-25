@@ -14,24 +14,31 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] private float speed;
 
+    public bool isFixed = true;
+    private Quaternion rotation;
 
-    //public Transform Target;
-    //public Transform Obstruction;
+	//public Transform Target;
+	//public Transform Obstruction;
 
-    //float zoomSpeed = 2f;
+	//float zoomSpeed = 2f;
 
-    //void Start()
-    //{   
-    //    //for camera obstruction purposes
-    //    Obstruction = Target;        
-    //}
+	//void Start()
+	//{   
+	//    //for camera obstruction purposes
+	//    Obstruction = Target;        
+	//}
 
+	private void Awake()
+	{
+        rotation = transform.rotation;
+	}
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
     {
         targetPosition = getMoveToPosition(targetTransform.position, relativeToTargetPosition, length);
         transform.position = Vector3.Lerp(transform.position, targetPosition, speed);
+        transform.rotation = rotation;
     }
 
     //void LateUpdate()

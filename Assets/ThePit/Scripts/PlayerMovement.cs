@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
 		Vector3 direction = calculateMovementDirection(playerInput, playerCamera);
+		Debug.Log(direction);
 		if (direction != Vector3.zero)
 		{
 			Vector3 newDirection = Vector3.RotateTowards(transform.forward, direction, angularSpeed, 0.0f);
