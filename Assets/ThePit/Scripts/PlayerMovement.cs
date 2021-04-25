@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private PickaxeBehaviour pickaxe;
 	[SerializeField] private Rigidbody rb;
 
+	private bool isJumping = false;
+
 	private void Awake()
 	{
 		if (playerInput == null)
@@ -38,8 +40,6 @@ public class PlayerMovement : MonoBehaviour
 				{
 					if (cameraScript.targetTransform == null)
 						cameraScript.targetTransform = this.transform;
-
-					
 					
 				}
 
@@ -57,6 +57,13 @@ public class PlayerMovement : MonoBehaviour
 
 	}
 
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.tag == "Ground")
+		{
+			isJumping = false;
+		}
+	}
 	void Update()
     {
 
@@ -70,18 +77,24 @@ public class PlayerMovement : MonoBehaviour
 
 			Vector3 movement = transform.forward * acceleration;
 
+			Debug.Log("Change in acceleration: " + transform.forward);
+
 			Vector3 nextXZVelocity = new Vector3(
 				movement.x + rb.velocity.x,
 				0,
 				movement.z + rb.velocity.z);
 
 			if (nextXZVelocity.magnitude < maxXZVelocity)
+			{
 				rb.velocity += movement;
+				Debug.Log("My new velocity: " + rb.velocity);
+			}
 		}
 
-		if (playerInput.jumpInputDown)
+		if (playerInput.jumpInputDown && !isJumping)
 		{
 			rb.AddForce(Vector3.up * jumpForce);
+			isJumping = true;
 		}
 
 		if (playerInput.mineInputDown)
@@ -105,4 +118,5 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 cameraCorrectedDirection = Quaternion.AngleAxis(camera.transform.rotation.eulerAngles.x, Vector3.up) * direction;
 		return cameraCorrectedDirection;
 	}
+
 }
