@@ -6,7 +6,10 @@ public class Block : MonoBehaviour
 {
     public bool canDestroy;
     public BlockType blockType;
-    public int health; //hits to destroy block
+    //hits to destroy block
+    public int health { get { return this._health; } set { SetHealth(value); } }
+    [SerializeField]
+    private int _health = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +36,43 @@ public class Block : MonoBehaviour
     //    }
     //}
 
+    public void AddHealth(int amount)
+    {
+        _health += amount;
+        if (_health <= 0)
+        {
+            _health = 0;
+            DestroyBlock();
+        }
+    }
+
+    private void SetHealth(int newHealth)
+    {
+        _health = newHealth;
+        if (_health <= 0)
+        {
+            _health = 0;
+            DestroyBlock();
+        }
+
+    }
+
+    private void DestroyBlock()
+    {
+        var terrainGenerator = transform.parent.GetComponent<GenerateTerrain>();
+        if (terrainGenerator != null)
+        {
+            if (terrainGenerator.replicateInNetwork)
+            {
+                Normal.Realtime.Realtime.Destroy(this.gameObject);
+
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
 }
 
 public enum BlockType 

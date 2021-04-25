@@ -14,6 +14,10 @@ public class GenerateTerrain : MonoBehaviour
     /// <summary>
     /// Replicates in the network the cube spawning
     /// </summary>
+    public bool replicateInNetwork { get; }
+    /// <summary>
+    /// Replicates in the network the cube spawning
+    /// </summary>
     [SerializeField]
     private bool _replicateInNetwork;
 
@@ -81,13 +85,16 @@ public class GenerateTerrain : MonoBehaviour
                         floor = Instantiate(floorNormalBlock, new Vector3(x, y, z), Quaternion.identity);
                     }
                     // Instantiating over the network
-                    else if (replicate && normalBlockNetworkedName != null)
+                    else if (replicate && !string.IsNullOrEmpty(normalBlockNetworkedName))
                     {
-                        floor = Realtime.Instantiate(normalBlockNetworkedName, 
+                        floor = Realtime.Instantiate(normalBlockNetworkedName,
+                            position: new Vector3(x, y, z),
+                            rotation: Quaternion.identity,
                             ownedByClient: false,      
                             preventOwnershipTakeover: false,      
                             destroyWhenOwnerOrLastClientLeaves: true,      // Instruct the server to destroy this prefab when the owner (this client) disconnects. (This is true by default, but added to the example for clarity)
-                            useInstance: _realtime);                            
+                            useInstance: _realtime
+                            );                            
                     }
                     floor.transform.parent = gameObject.transform;
 
