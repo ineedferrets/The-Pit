@@ -10,6 +10,9 @@ public class PickaxeBehaviour : MonoBehaviour
     private float startRotationX;
     private float endRotationX;
 
+    private AudioSource source;
+    private float pitch;
+
     private Quaternion initialRotation;
 
 
@@ -20,6 +23,8 @@ public class PickaxeBehaviour : MonoBehaviour
         startRotationX = -45f;
         endRotationX = 35f;
         ResetPick();
+        source = GetComponent<AudioSource>();
+        pitch = source.pitch;
     }
 
     // Update is called once per frame
@@ -56,6 +61,9 @@ public class PickaxeBehaviour : MonoBehaviour
             Block block = other.gameObject.GetComponent<Block>();
             if (block != null && block.canDestroy)
             {
+                source.Play();
+                source.pitch = pitch + Random.Range(-0.5f, 0.5f);
+
                 block.health--; // this updates the block internal logic as well
                 if (block.health < 1)
                 {

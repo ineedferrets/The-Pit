@@ -136,11 +136,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3836964882776694936, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
       propertyPath: cutoutSize
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3836964882776694936, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
       propertyPath: falloffSize
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4506601825630615669, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
       propertyPath: orthographic

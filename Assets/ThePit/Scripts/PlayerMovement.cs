@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
+		playerCamera.transform.parent = null;
 	}
 
 	void OnCollisionEnter(Collision collision)

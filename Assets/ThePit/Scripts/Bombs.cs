@@ -14,6 +14,10 @@ public class Bombs : MonoBehaviour
     float countdown;
     bool hasExploded = false;
 
+    [SerializeField]
+    private float destroyGameObjectDelay = 2.0f;
+    private bool toBeDestroyed = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,12 +27,29 @@ public class Bombs : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (toBeDestroyed)
+            destroyGameObjectDelay -= Time.deltaTime;
+
         countdown -= Time.deltaTime;
+
+        if (bombType == BombType.Claymore && countdown > 0.9f && countdown < 1.1f)
+		{
+            GetComponent<AudioSource>().Play();
+		}
+
         if (countdown <= 0f && !hasExploded)
         {
+            if (bombType == BombType.TNT)
+                GetComponent<AudioSource>().Play();
+
             Explode();
             hasExploded = true;
         }
+
+        if (destroyGameObjectDelay <= 0.0f)
+		{
+            Destroy(gameObject);
+		}
     }
 
 
@@ -64,10 +85,17 @@ public class Bombs : MonoBehaviour
             }
         }
 
-
         //Remove grenade
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        setInvisible();
+        toBeDestroyed = true;
     }
+
+    private void setInvisible()
+	{
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+	}
 }
 
 public enum BombType
