@@ -55,6 +55,13 @@ public class Block : MonoBehaviour
             DestroyBlock();
         }
 
+        if (health >= 3)
+            GetComponent<Renderer>().material.SetFloat("_BlendAmount", 0.0f);
+        else if (health == 2)
+            GetComponent<Renderer>().material.SetFloat("_BlendAmount", 0.2f);
+        else if (health == 1)
+            GetComponent<Renderer>().material.SetFloat("_BlendAmount", 1.0f);
+
     }
 
     private void DestroyBlock()
