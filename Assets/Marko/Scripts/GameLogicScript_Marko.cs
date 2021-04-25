@@ -22,6 +22,8 @@ public class GameLogicScript_Marko : MonoBehaviour
 
     public List<string> playerNames = new List<string>();
 
+
+    private bool quitGame = false;
     void Awake()
     {
 
@@ -47,6 +49,20 @@ public class GameLogicScript_Marko : MonoBehaviour
 
     public void ExitGame()
     {
+        if (quitGame == false)
+        {
+            RoomDataSyncController.DecreaseNumberOfPlayers();
+            quitGame = true;
+            StartCoroutine(ExitAfterTime(1)); //without this model doesn't register the change before quiting the app
+
+        }
+        
+    }
+
+    IEnumerator ExitAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
         Application.Quit();
     }
 
@@ -57,12 +73,7 @@ public class GameLogicScript_Marko : MonoBehaviour
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(2, 4), Random.Range(-2, 2));
 
         PlayerSyncController.gameObject.transform.position = position + randomness;
-        /*
-        if (!SceneManager.GetActiveScene().name.Equals("GameScene"))
-        {
-            SceneManager.LoadScene("GameScene");
-        }
-        */
+
 
         MainMenuScript.HideInfo();
         MainMenuScript.HideUI();
@@ -74,12 +85,7 @@ public class GameLogicScript_Marko : MonoBehaviour
         Vector3 position = new Vector3(50, 1, 0);
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(0, 4), Random.Range(-2, 2));
         PlayerSyncController.gameObject.transform.position = position + randomness;
-        /*
-        if (!SceneManager.GetActiveScene().name.Equals("GameOverScene"))
-        {
-            SceneManager.LoadScene("GameOverScene");
-        }
-        */
+
     }
 
     public void GoToLobby()
@@ -88,12 +94,7 @@ public class GameLogicScript_Marko : MonoBehaviour
         Vector3 position = new Vector3(0, 1, 0);
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(0, 4), Random.Range(-2, 2));
         PlayerSyncController.gameObject.transform.position = position + randomness;
-        /*
-        if (!SceneManager.GetActiveScene().name.Equals("LobbyScene"))
-        {
-            SceneManager.LoadScene("LobbyScene");
-        }
-        */
+ 
 
         MainMenuScript.ShowInfo();
         MainMenuScript.ShowUI();
