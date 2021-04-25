@@ -63,6 +63,9 @@ public class GameLogicScript_Marko : MonoBehaviour
             SceneManager.LoadScene("GameScene");
         }
         */
+
+        MainMenuScript.HideInfo();
+        MainMenuScript.HideUI();
     }
 
     public void GoToGameOverScene()
@@ -91,5 +94,8 @@ public class GameLogicScript_Marko : MonoBehaviour
             SceneManager.LoadScene("LobbyScene");
         }
         */
+
+        MainMenuScript.ShowInfo();
+        MainMenuScript.ShowUI();
     }
 }

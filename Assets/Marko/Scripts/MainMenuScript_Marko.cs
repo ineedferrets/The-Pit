@@ -15,6 +15,11 @@ public class MainMenuScript_Marko : MonoBehaviour
     public Text _playerNamesText;
 
 
+    public GameObject Rules;
+    public GameObject Controls;
+    public GameObject UI;
+
+
     private static MainMenuScript_Marko _instance;
     public static MainMenuScript_Marko Instance { get { return _instance; } }
 
@@ -58,5 +63,24 @@ public class MainMenuScript_Marko : MonoBehaviour
         {
             _playerNamesText.text += name + "\n";
         }
+    }
+
+    public void ShowInfo()
+    {
+        Rules.SetActive(true);
+        Controls.SetActive(true);
+    }
+    public void HideInfo()
+    {
+        Rules.SetActive(false);
+        Controls.SetActive(false);
+    }
+    public void ShowUI()
+    {
+        UI.SetActive(true);
+    }
+    public void HideUI()
+    {
+        UI.SetActive(false);
     }
 }
