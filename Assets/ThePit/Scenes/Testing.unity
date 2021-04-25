@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: speed
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 4506601825630615669, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6510522086123694310, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -181,7 +185,7 @@ PrefabInstance:
     - target: {fileID: 6510522086123694332, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
       propertyPath: playerCamera
       value: 
-      objectReference: {fileID: 963194227}
+      objectReference: {fileID: 921789480}
     - target: {fileID: 6510522086123694335, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
       propertyPath: m_Name
       value: Player
@@ -189,6 +193,18 @@ PrefabInstance:
     - target: {fileID: 6510522086123694335, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795355099961416625, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+      propertyPath: targetPosition.x
+      value: -4.082483
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795355099961416625, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+      propertyPath: targetPosition.y
+      value: 9.164966
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795355099961416625, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+      propertyPath: targetPosition.z
+      value: -4.082483
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
@@ -285,6 +301,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!20 &921789480 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4506601825630615669, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+  m_PrefabInstance: {fileID: 518949231}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +409,7 @@ MonoBehaviour:
   length: 30
   targetPosition: {x: -14.552138, y: 22.828207, z: -14.552138}
   speed: 3
+  isFixed: 1
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
