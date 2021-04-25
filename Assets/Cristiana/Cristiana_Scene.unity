@@ -214,8 +214,99 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1122326824 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9218164844314392227, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+  m_PrefabInstance: {fileID: 1661034643}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1122326825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122326824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edcda524affeda04b85c0b7f8e49b40a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorNormalBlock: {fileID: 8605606859762454194, guid: 4225334fee947664b84d44adbcdaa3ca, type: 3}
+  floorBedrockBlock: {fileID: 8605606859762454194, guid: f4100b236bbab2a459f605ecb1e15f8a, type: 3}
+  treasure: {fileID: 8605606859762454194, guid: 928812241d58d0e4e82a707d298a7da7, type: 3}
+  wallNormal: {fileID: 742691898248278085, guid: f87efa8495b61234eb323de1ede9a0ea, type: 3}
+  normalBlockNetworkedName: 
+  x_min: -10
+  x_max: 10
+  y_min: -10
+  y_max: 0
+  z_min: -10
+  z_max: 10
+  bedrockStartPoint: -5
+  _replicateInNetwork: 0
+--- !u!1001 &1661034643
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 9218164844314392224, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5262785
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.6268525
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.702027
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392225, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392227, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
+      propertyPath: m_Name
+      value: C_TerrainGenerator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57d0f602ef6d67649855efa56b67834b, type: 3}
 --- !u!1 &1846139167
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +444,10 @@ PrefabInstance:
     - target: {fileID: 9218164844314392227, guid: 06e587ad4ea37ea4a8399cc4d0ff2ebc, type: 3}
       propertyPath: m_Name
       value: TerrainGenerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218164844314392227, guid: 06e587ad4ea37ea4a8399cc4d0ff2ebc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06e587ad4ea37ea4a8399cc4d0ff2ebc, type: 3}
