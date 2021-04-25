@@ -65,7 +65,7 @@ public class PickaxeBehaviour : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
+    {//TODO
         if (other.gameObject.tag == "Ground")
         {
             Block block = other.gameObject.GetComponent<Block>();
