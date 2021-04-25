@@ -64,7 +64,7 @@ public class Block : MonoBehaviour
 
     }
 
-    private void DestroyBlock()
+    protected virtual void DestroyBlock()
     {
         var terrainGenerator = transform.parent.GetComponent<GenerateTerrain>();
         if (terrainGenerator != null)
