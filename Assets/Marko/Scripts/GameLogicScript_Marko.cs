@@ -54,7 +54,7 @@ public class GameLogicScript_Marko : MonoBehaviour
     {
 
         Vector3 position = new Vector3(25, 1, 0);
-        Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(0, 4), Random.Range(-2, 2));
+        Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(2, 4), Random.Range(-2, 2));
 
         PlayerSyncController.gameObject.transform.position = position + randomness;
         /*

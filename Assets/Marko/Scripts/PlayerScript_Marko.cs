@@ -28,7 +28,7 @@ public class PlayerScript_Marko : MonoBehaviour
     private void DidConnectToRoom(Realtime realtime)
     {
         
-        Vector3 position = new Vector3(Random.Range(-2f, 2f), Random.Range(0,4), Random.Range(-2,2));
+        Vector3 position = new Vector3(Random.Range(-2f, 2f), Random.Range(1,5), Random.Range(-2,2));
         
         // Instantiate the CubePlayer for this client once we've successfully connected to the room
         GameObject player = Realtime.Instantiate("Player_Marko2",                 // Prefab name

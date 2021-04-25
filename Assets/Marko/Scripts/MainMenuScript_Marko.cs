@@ -19,7 +19,7 @@ public class MainMenuScript_Marko : MonoBehaviour
     public GameObject Controls;
     public GameObject UI;
 
-
+    /*
     private static MainMenuScript_Marko _instance;
     public static MainMenuScript_Marko Instance { get { return _instance; } }
 
@@ -37,6 +37,7 @@ public class MainMenuScript_Marko : MonoBehaviour
         }
 
     }
+    */
 
     public void StartGame()
     {
