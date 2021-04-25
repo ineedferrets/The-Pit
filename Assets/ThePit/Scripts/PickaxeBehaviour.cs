@@ -54,7 +54,7 @@ public class PickaxeBehaviour : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             Block block = other.gameObject.GetComponent<Block>();
-            if (block != null)
+            if (block != null && block.canDestroy)
             {
                 block.health--; // this updates the block internal logic as well
                 if (block.health < 1)

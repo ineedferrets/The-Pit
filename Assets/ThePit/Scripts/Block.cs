@@ -85,5 +85,6 @@ public class Block : MonoBehaviour
 public enum BlockType 
 { 
     Floor, 
+    Bedrock,
     Treasure
 }

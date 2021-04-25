@@ -45,7 +45,7 @@ public class Bombs : MonoBehaviour
             {
                 //Destroy blocks that are allowed
                 Block block = nearbyObject.GetComponent<Block>();
-                if (block.canDestroy)
+                if (block.canDestroy && block.blockType!=BlockType.Treasure)
                 {
                     block.AddHealth(-5);
                 }
