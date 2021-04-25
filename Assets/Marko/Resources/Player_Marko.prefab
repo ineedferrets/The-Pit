@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 3911127899914485793}
   - component: {fileID: 5482590921298540932}
   - component: {fileID: 5482590921298540933}
+  - component: {fileID: 7477885802455708350}
   m_Layer: 0
   m_Name: Player_Marko
   m_TagString: Player
@@ -285,7 +286,22 @@ MonoBehaviour:
   _components:
   - componentID: 1
     component: {fileID: 5482590921298540932}
+  - componentID: 2
+    component: {fileID: 7477885802455708350}
   _childViews: []
+--- !u!114 &7477885802455708350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3911127899914485794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75331a77c9c23e8409800e3616daef7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meshRenderer: {fileID: 3911127899914485821}
 --- !u!1 &3911127899958476659
 GameObject:
   m_ObjectHideFlags: 0

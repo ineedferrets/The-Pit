@@ -335,6 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomDataSyncController: {fileID: 1237718111}
+  PlayerSyncController: {fileID: 0}
   UIManagerScript: {fileID: 2104308655}
   playerNames: []
 --- !u!4 &395829888
@@ -716,10 +717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _realtime: {fileID: 1237718109}
-  PlayerSyncScript: {fileID: 0}
-  Player: {fileID: 0}
-  Color: {r: 0, g: 0, b: 0, a: 0}
-  PreviousColor: {r: 0, g: 0, b: 0, a: 0}
+  PlayerSyncController: {fileID: 0}
 --- !u!1 &1739349616
 GameObject:
   m_ObjectHideFlags: 0

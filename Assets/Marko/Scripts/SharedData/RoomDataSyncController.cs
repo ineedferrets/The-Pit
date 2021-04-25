@@ -40,13 +40,13 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
 
     private void PlayerNamesDidChange(RoomDataModel model, string value)
     {
-        UpdatePlayerNames();
+        //UpdatePlayerNames();
     }
 
 
     private void UpdateNumberOfPlayers()
     {
-        LevelManagerScript_Marko.Instance.UIManagerScript.UpdateNumberOfPlayers(model.numberOfPlayers);
+        GameLogicScript_Marko.Instance.MainMenuScript.SetNumberOfPlayers(model.numberOfPlayers);
     }
 
 
@@ -58,7 +58,7 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
             names.Add(name);
         }
 
-        LevelManagerScript_Marko.Instance.UIManagerScript.UpdatePlayerNames(names);
+        GameLogicScript_Marko.Instance.MainMenuScript.SetPlayerNames(names);
     }
     public void IncreaseNumberOfPlayers()
     {

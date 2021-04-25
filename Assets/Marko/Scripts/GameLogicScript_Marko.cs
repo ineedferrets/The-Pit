@@ -13,6 +13,14 @@ public class GameLogicScript_Marko : MonoBehaviour
     public string PlayerName;
     public Color PlayerColor;
 
+
+    public RoomDataSyncController RoomDataSyncController;
+    public PlayerSyncController PlayerSyncController;
+    public MainMenuScript_Marko MainMenuScript;
+
+
+    public List<string> playerNames = new List<string>();
+
     void Awake()
     {
 
@@ -27,6 +35,8 @@ public class GameLogicScript_Marko : MonoBehaviour
         }
 
     }
+
+
 
     private void Update()
     {

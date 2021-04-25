@@ -10,11 +10,12 @@ public class LevelManagerScript_Marko : MonoBehaviour
 
 
     public RoomDataSyncController RoomDataSyncController;
+    public PlayerSyncController PlayerSyncController;
     public UIManagerScript_Marko UIManagerScript;
 
 
 
-    public List<string> playerNames;
+    public List<string> playerNames = new List<string>();
 
     // Start is called before the first frame update
     void Awake()
@@ -22,7 +23,6 @@ public class LevelManagerScript_Marko : MonoBehaviour
         if (Instance == null)
         {
             _instance = this;
-            playerNames = new List<string>();
         }
         else
         {

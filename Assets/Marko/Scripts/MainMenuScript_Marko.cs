@@ -8,12 +8,12 @@ public class MainMenuScript_Marko : MonoBehaviour
 {
     public InputField Username;
 
-
-    public MeshRenderer MeshRenderer;
-
     public Slider RedSlider;
     public Slider GreenSlider;
     public Slider BlueSlider;
+
+    public Text _numberOfPlayersText;
+    public Text _playerNamesText;
 
     public void StartGame()
     {
@@ -24,7 +24,21 @@ public class MainMenuScript_Marko : MonoBehaviour
     public void SetColor()
     {
         Color c = new Color(RedSlider.value, GreenSlider.value, BlueSlider.value, 1);
-        MeshRenderer.material.color = c;
-        GameLogicScript_Marko.Instance.PlayerColor = c;
+        GameLogicScript_Marko.Instance.PlayerSyncController.SetPlayerColor(c);
+    }
+
+
+    public void SetNumberOfPlayers(int numberOfPlayers)
+    {
+        _numberOfPlayersText.text = "Number of players: " + numberOfPlayers.ToString();
+    }
+
+    public void SetPlayerNames(List<string> playerNames)
+    {
+        _playerNamesText.text = "";
+        foreach (string name in playerNames)
+        {
+            _playerNamesText.text += name + "\n";
+        }
     }
 }
