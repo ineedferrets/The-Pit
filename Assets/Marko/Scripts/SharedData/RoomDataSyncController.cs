@@ -16,6 +16,7 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
             previousModel.sceneNameDidChange -= SceneNameDidChange;
             previousModel.winnerNameDidChange -= WinnerNameDidChange;
             previousModel.clientWithTreasureDidChange -= ClientWithTreasureDidChange;
+            previousModel.gameCompletedDidChange -= GameCompletedDidChange;
         }
 
         if (currentModel != null)
@@ -27,6 +28,7 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
                 currentModel.sceneName = "LobbyScene";
                 currentModel.winnerName = "";
                 currentModel.clientWithTreasure = -1;
+                currentModel.gameCompleted = false;
             }
             
             
@@ -38,6 +40,7 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
             currentModel.sceneNameDidChange += SceneNameDidChange;
             currentModel.winnerNameDidChange += WinnerNameDidChange;
             currentModel.clientWithTreasureDidChange += ClientWithTreasureDidChange;
+            currentModel.gameCompletedDidChange += GameCompletedDidChange;
         }
 
     }
@@ -65,6 +68,11 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
     private void ClientWithTreasureDidChange(RoomDataModel model, int value)
     {
         UpdateClientWithTreasure();
+    }
+
+    private void GameCompletedDidChange(RoomDataModel model, bool value)
+    {
+        UpdateGameCompleted(model.gameCompleted);
     }
 
     private void UpdateNumberOfPlayers()
@@ -128,6 +136,11 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
         }
     }
 
+    private void UpdateGameCompleted(bool value)
+    {
+        GameLogicScript_Marko.Instance.gameCompleted = value;
+    }
+
     public void IncreaseNumberOfPlayers()
     {
         model.numberOfPlayers++;
@@ -151,11 +164,18 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
     public void SetWinnerName(string name)
     {
         model.winnerName =  realtime.clientID+";"+ name;
+        // Set the win flag to true
+        SetGameCompleted(true);
     }
 
     public void SetClientWithTreasure(int id)
     {
         model.clientWithTreasure = id;
+    }
+
+    public void SetGameCompleted(bool value)
+    {
+        model.gameCompleted = value;
     }
 
 }

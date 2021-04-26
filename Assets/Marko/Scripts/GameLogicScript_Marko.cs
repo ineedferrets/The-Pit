@@ -23,6 +23,7 @@ public class GameLogicScript_Marko : MonoBehaviour
 
     public List<string> playerNames = new List<string>();
 
+    public bool gameCompleted;
 
     private bool quitGame = false;
     void Awake()
@@ -110,5 +111,11 @@ public class GameLogicScript_Marko : MonoBehaviour
     public void GeneratePit()
     {
         TerrainGenerator.GeneratePit();
+    }
+
+    public void SetGameCompleted(bool value)
+    {
+        gameCompleted = value;
+        RoomDataSyncController.SetGameCompleted(gameCompleted);
     }
 }
