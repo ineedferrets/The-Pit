@@ -37,18 +37,18 @@ public class Block : MonoBehaviour
     public void AddHealth(int amount)
     {
         _health += amount;
-        if (_health <= 0)
-        {
-            _health = 0;
-            DestroyBlock();
-        }
+        UpdateSyncHealth();
     }
 
     private void SetHealth(int newHealth)
     {
-        bool destroyBlock = false;
-
         _health = newHealth;
+        UpdateSyncHealth();
+    }
+
+    private void UpdateSyncHealth()
+    {
+        bool destroyBlock = false;
 
         if (_health <= 0)
         {

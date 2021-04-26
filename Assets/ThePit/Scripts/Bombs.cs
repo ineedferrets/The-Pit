@@ -11,6 +11,7 @@ public class Bombs : MonoBehaviour
     public float force;
 
     public GameObject particlesEffect;
+    private ParticleSystem _particles;
     public List<Renderer> renderers;
     public Collider collider;
     public AudioClip explosionSoundFx;
@@ -29,11 +30,17 @@ public class Bombs : MonoBehaviour
     private void Awake()
     {
         _realtimeView = GetComponent<RealtimeView>();
+        _particles = particlesEffect.GetComponent<ParticleSystem>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        if (_particles)
+        {
+            var particlesMain = _particles.main;
+            particlesMain.startDelay = delay;
+        }
         countdown = delay;
         if (GetComponent<Renderer>() != null)
             renderers.Add(GetComponent<Renderer>());
@@ -67,9 +74,8 @@ public class Bombs : MonoBehaviour
 
         if (countdown <= 0f && !hasExploded)
         {
-
-            Explode();
             hasExploded = true;
+            Explode();
         }
 
         if (destroyGameObjectDelay <= 0.0f)
@@ -90,8 +96,15 @@ public class Bombs : MonoBehaviour
 
     void Explode()
     {
+        Debug.Log("Exploding bomb!");
+
         //Show effect
-        Instantiate(particlesEffect, transform.position, transform.rotation);
+        // online
+        if (_realtimeView != null && _realtimeView.isOwnedLocallySelf && particlesEffect != null)
+            Realtime.Instantiate(particlesEffect.name, transform.position, transform.rotation);
+        // offline
+        else
+            Instantiate(particlesEffect, transform.position, transform.rotation);
 
         if (bombType == BombType.TNT)
         {

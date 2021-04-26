@@ -55,7 +55,7 @@ public class LightTimer : MonoBehaviour
         Color tempColor = Color.Lerp(bulbColour, lightColour, colourInterpolateFactor);
         lightBulbMaterial.color = new Color(tempColor.r, tempColor.g, tempColor.b, bulbAlpha);
 
-        Debug.Log(pureSinValue);
+        //Debug.Log(pureSinValue);
 
         if (bomb.countdown > 0.0f && 1.0f - pureSinValue < 0.08f )
             beepNoise.Play();
