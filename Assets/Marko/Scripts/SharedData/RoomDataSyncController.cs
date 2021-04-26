@@ -153,13 +153,16 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
         
         foreach(PlayerMovement pm in GameLogicScript_Marko.Instance.allPlayers)
         {
-            if (pm.clientID == model.clientWithTreasure)
+            if (pm != null)
             {
-                pm.TakeTreasure();
-            } 
-            else
-            {
-                pm.LoseTreasure();
+                if (pm.clientID == model.clientWithTreasure)
+                {
+                    pm.TakeTreasure();
+                }
+                else
+                {
+                    pm.LoseTreasure();
+                }
             }
         }
     }
