@@ -31,16 +31,19 @@ public class Bombs : MonoBehaviour
     {
         _realtimeView = GetComponent<RealtimeView>();
         _particles = particlesEffect.GetComponent<ParticleSystem>();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (_particles)
-        {
-            var particlesMain = _particles.main;
-            particlesMain.startDelay = delay;
-        }
+
+        //if (_particles)
+        //{
+        //    var particlesMain = _particles.main;
+        //    particlesMain.startDelay = delay;
+        //}
+
         countdown = delay;
         if (GetComponent<Renderer>() != null)
             renderers.Add(GetComponent<Renderer>());
@@ -96,7 +99,6 @@ public class Bombs : MonoBehaviour
 
     void Explode()
     {
-        Debug.Log("Exploding bomb!");
 
         //Show effect
         // online

@@ -123,8 +123,6 @@ public class GenerateTerrain : MonoBehaviour
             // If we don't own the generator, bail
             if (!_realtimeGenerateTerrain.isOwnedLocallySelf)
                 yield break;
-
-            Debug.Log("We own the generator.");
             
             if (reset)
                 // Reset generation flags for new use
@@ -146,8 +144,6 @@ public class GenerateTerrain : MonoBehaviour
             // Wait until destruction coroutine is done
             while (!destructionCompleted)
                 yield return null;
-
-            Debug.Log("Generating terrain...");
 
             // Sync over the network
             SyncGenerationFlags(_realtimeGenerateTerrain);
@@ -381,8 +377,6 @@ public class GenerateTerrain : MonoBehaviour
         if (blocks == null)
             yield break;
 
-        Debug.Log("Destroy coroutine blocks started!");
-
         destructionCompleted = false;
 
         int blocksToDestroy = blocksPerFrame; // Used to destroy a set of blocks every frame
@@ -415,8 +409,6 @@ public class GenerateTerrain : MonoBehaviour
         SetGenerationFlags(false, _realtimeGenerateTerrain);
 
         destructionCompleted = true;
-
-        Debug.Log("Destroy coroutine blocks done!");
 
     }
 
