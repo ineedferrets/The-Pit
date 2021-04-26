@@ -173,7 +173,10 @@ MonoBehaviour:
   force: 1000
   particlesEffect: {fileID: 7191226723110465608, guid: 166d828422267ed4193a9fb0086c38e1, type: 3}
   renderers: []
-  collider: {fileID: 0}
+  collider: {fileID: 836016669000017724}
+  explosionSoundFx: {fileID: 8300000, guid: 4d03d197482cda5458da6500a6d7e459, type: 3}
+  fuseSoundFx: {fileID: 0}
+  source: {fileID: 8819173028459797515}
   destroyGameObjectDelay: 2
 --- !u!82 &8819173028459797515
 AudioSource:
@@ -193,7 +196,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -261,7 +264,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -372,12 +375,12 @@ MonoBehaviour:
   lightColour: {r: 1, g: 0, b: 0, a: 1}
   bulbColour: {r: 1, g: 1, b: 1, a: 1}
   bulbAlpha: 0.1
-  slowFlashRate: 0.5
-  fastFlashRate: 3
+  slowFlashRate: 20
+  fastFlashRate: 40
   lightSource: {fileID: 1810359036067346130}
   lightBulbMaterial: {fileID: 2100000, guid: 0946c1be7904fc1448d69f4d909f94c0, type: 2}
   bomb: {fileID: 4629447910585115859}
-  beepNoise: {fileID: 0}
+  beepNoise: {fileID: 1543891071320037505}
 --- !u!82 &1543891071320037505
 AudioSource:
   m_ObjectHideFlags: 0
@@ -387,7 +390,7 @@ AudioSource:
   m_GameObject: {fileID: 3802945737808244072}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8618573682759162934, guid: 844cf40596694594ba2f2063e22f697c, type: 2}
   m_audioClip: {fileID: 8300000, guid: ae341ea88c35e324caac8dd0e55f9c2f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.257

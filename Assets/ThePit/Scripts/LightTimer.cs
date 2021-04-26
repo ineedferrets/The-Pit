@@ -43,21 +43,22 @@ public class LightTimer : MonoBehaviour
 	private void Update()
 	{
         timeSinceInstantiation += Time.deltaTime;
+        float pureSinValue;
 
         if (bomb.countdown >= 1.0f)
-        {
-            lightSource.intensity = Mathf.Sin(timeSinceInstantiation * slowFlashRate) * (maxIntensity - minIntensity) + (1 + minIntensity);
-            float colourInterpolateFactor = Mathf.Sin(timeSinceInstantiation * slowFlashRate) / 2.0f + 0.5f;
-            Color tempColor = Color.Lerp(bulbColour, lightColour, colourInterpolateFactor);
-            lightBulbMaterial.color = new Color(tempColor.r, tempColor.g, tempColor.b, bulbAlpha);
-        }
+            pureSinValue = Mathf.Sin(timeSinceInstantiation * slowFlashRate);
         else
-        {
-            lightSource.intensity = Mathf.Sin(timeSinceInstantiation * fastFlashRate) * (maxIntensity - minIntensity) + (1 + minIntensity);
-            float colourInterpolateFactor = Mathf.Sin(timeSinceInstantiation * fastFlashRate) / 2.0f + 0.5f;
-            Color tempColor = Color.Lerp(bulbColour, lightColour, colourInterpolateFactor);
-            lightBulbMaterial.color = new Color(tempColor.r, tempColor.g, tempColor.b, bulbAlpha);
-        }
+            pureSinValue = Mathf.Sin(timeSinceInstantiation * fastFlashRate);
+
+        lightSource.intensity = pureSinValue * (maxIntensity - minIntensity) + (1 + minIntensity);
+        float colourInterpolateFactor = pureSinValue / 2.0f + 0.5f;
+        Color tempColor = Color.Lerp(bulbColour, lightColour, colourInterpolateFactor);
+        lightBulbMaterial.color = new Color(tempColor.r, tempColor.g, tempColor.b, bulbAlpha);
+
+        Debug.Log(pureSinValue);
+
+        if (bomb.countdown > 0.0f && 1.0f - pureSinValue < 0.05f )
+            beepNoise.Play();
     }
 
 	private void OnValidate()
