@@ -43,7 +43,7 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
             currentModel.winnerNameDidChange += WinnerNameDidChange;
             currentModel.clientWithTreasureDidChange += ClientWithTreasureDidChange;
             currentModel.gameCompletedDidChange += GameCompletedDidChange;
-            previousModel.gameStartedDidChange += GameStartedDidChange;
+            currentModel.gameStartedDidChange += GameStartedDidChange;
 
         }
 
