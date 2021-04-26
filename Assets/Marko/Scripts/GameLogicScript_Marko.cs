@@ -77,12 +77,12 @@ public class GameLogicScript_Marko : MonoBehaviour
             ExitGame();
         }
 
-        /*
+        
         if (Input.GetKey(KeyCode.Space))
         {
             RoomDataSyncController.SetClientWithTreasure(RoomDataSyncController.realtime.clientID);
         }
-        */
+        
     }
 
     private void OnDestroy()
