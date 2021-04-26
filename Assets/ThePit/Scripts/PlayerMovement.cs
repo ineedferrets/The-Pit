@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Normal.Realtime;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class PlayerMovement : MonoBehaviour
 
 	public bool holdingTreasure = false;
 
+	/// <summary>
+	/// Network info
+	/// </summary>
+	private RealtimeView _realtimeView; 
+
 	private void Awake()
 	{
 		if (playerInput == null)
@@ -28,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
 			playerCamera = GetComponentInChildren<Camera>();
 		if (pickaxe == null)
 			pickaxe = GetComponentInChildren<PickaxeBehaviour>();
+		_realtimeView = GetComponent<RealtimeView>();
+
 
 		// Attempt again to get the camera from the scene if it didn't work at first from children
 		if (playerCamera == null)
@@ -57,16 +65,14 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
-		playerCamera.transform.parent = null;
+
 	}
 
-	void OnCollisionEnter(Collision collision)
-	{
-		if (collision.gameObject.tag == "Ground")
-		{
-			isJumping = false;
-		}
-	}
+    private void Start()
+    {
+		UpdateCameraOwnership();
+    }
+
 	void Update()
     {
 		if (holdingTreasure)
@@ -111,6 +117,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.tag == "Ground")
+		{
+			isJumping = false;
+		}
+	}
+
 	private Vector3 calculateMovementDirection(PlayerInput input, Camera camera)
 	{
 		Vector3 direction = new Vector3(
@@ -123,4 +137,43 @@ public class PlayerMovement : MonoBehaviour
 		return cameraCorrectedDirection;
 	}
 
+
+	/// <summary>
+	/// Updates camera ownership, both online and offline
+	/// </summary>
+	private void UpdateCameraOwnership()
+    {
+		// Is this a networked player?
+		if (_realtimeView != null)
+		{
+			// If the player is not owning this, then disable the camera (it is a client)
+			if (!_realtimeView.isOwnedLocallySelf)
+				playerCamera.gameObject.SetActive(false);
+			// It is our own camera, let's place it as a child of the world
+			else
+				playerCamera.transform.parent = null;
+
+		}
+		// No networking in place
+		else
+		{
+			// Set camera as a child of the world
+			playerCamera.transform.parent = null;
+		}
+
+	}
+
+    private void OnDestroy()
+    {
+        // Make sure to destroy the camera as well
+        if (playerCamera != null)
+        {
+			// Destoy the camera over the network if we are the owners
+			if (_realtimeView != null && _realtimeView.isOwnedLocallySelf)
+				Realtime.Destroy(playerCamera);
+			// If offline mode, destroy locally
+			else if (_realtimeView == null)
+				Destroy(playerCamera);
+        }
+    }
 }
