@@ -126,11 +126,10 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
         {
             if (pm.clientID == model.clientWithTreasure)
             {
-                Debug.Log(pm.clientID + " took the treasure");
                 pm.TakeTreasure();
-            } else
+            } 
+            else
             {
-                Debug.Log(pm.clientID + " lost the treasure");
                 pm.LoseTreasure();
             }
         }
