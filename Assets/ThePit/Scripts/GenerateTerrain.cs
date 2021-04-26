@@ -157,7 +157,7 @@ public class GenerateTerrain : MonoBehaviour
             // Wait until generation coroutine is done
             while (!generationCompleted)
                 yield return null;
-            coroutine = StartCoroutine(GenerateWalls());
+            coroutine = StartCoroutine(GenerateWalls(_replicateInNetwork));
         }
         else
         {
@@ -171,18 +171,18 @@ public class GenerateTerrain : MonoBehaviour
 
             GenerateChestPos();
             StartCoroutine(GenerateFloor(_replicateInNetwork));
-            GenerateWalls();
+            StartCoroutine(GenerateWalls(_replicateInNetwork));
         }
     }
 
-    private IEnumerator GenerateWalls()
+    private IEnumerator GenerateWalls(bool replicate)
     {
 
         float xQuadScale = 1.08f * (x_max - x_min);
         float zQuadScale = 1.08f * (z_max - z_min);
 
         //for the walls N/S
-        if (replicateInNetwork)
+        if (replicate)
         {
             string prefabName = wallNormal.name + "_Network";
             GameObject wallN = Realtime.Instantiate(prefabName, new Vector3(0, 0, z_min - 0.6f), Quaternion.identity);
