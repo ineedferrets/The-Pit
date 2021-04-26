@@ -145,9 +145,7 @@ public class GenerateTerrain : MonoBehaviour
 
             // Wait until destruction coroutine is done
             while (!destructionCompleted)
-            {
                 yield return null;
-            }
 
             Debug.Log("Generating terrain...");
 
@@ -155,7 +153,11 @@ public class GenerateTerrain : MonoBehaviour
             SyncGenerationFlags(_realtimeGenerateTerrain);
             GenerateChestPos();
             coroutine = StartCoroutine(GenerateFloor(_replicateInNetwork));
-            GenerateWalls();
+            
+            // Wait until generation coroutine is done
+            while (!generationCompleted)
+                yield return null;
+            coroutine = StartCoroutine(GenerateWalls());
         }
         else
         {
@@ -173,40 +175,70 @@ public class GenerateTerrain : MonoBehaviour
         }
     }
 
-    private void GenerateWalls()
+    private IEnumerator GenerateWalls()
     {
 
         float xQuadScale = 1.08f * (x_max - x_min);
         float zQuadScale = 1.08f * (z_max - z_min);
 
         //for the walls N/S
-        GameObject wallN = Instantiate(wallNormal, new Vector3(0, 0, z_min - 0.6f), Quaternion.identity);
-        wallN.transform.localScale = new Vector3(xQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
-        GameObject wallS = Instantiate(wallNormal, new Vector3(0, 0, z_max + 0.6f), Quaternion.identity);
-        wallS.transform.localScale = new Vector3(xQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
+        if (replicateInNetwork)
+        {
+            string prefabName = wallNormal.name + "_Network";
+            GameObject wallN = Realtime.Instantiate(prefabName, new Vector3(0, 0, z_min - 0.6f), Quaternion.identity);
+            wallN.transform.localScale = new Vector3(xQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);            
+            GameObject wallS = Realtime.Instantiate(prefabName, new Vector3(0, 0, z_max + 0.6f), Quaternion.identity);
+            wallS.transform.localScale = new Vector3(xQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
 
-        GameObject wallW = Instantiate(wallNormal, new Vector3(x_min - 0.6f, 0, 0), Quaternion.identity);
-        wallW.transform.localScale = new Vector3(zQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
-        wallW.transform.Rotate(0, 90, 0);
-        GameObject wallE = Instantiate(wallNormal, new Vector3(x_max + 0.6f, 0, 0), Quaternion.identity);
-        wallE.transform.localScale = new Vector3(zQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
-        wallE.transform.Rotate(0, 90, 0);
+            // wait a frame
+            yield return null;
+            GameObject wallW = Realtime.Instantiate(prefabName, new Vector3(x_min - 0.6f, 0, 0), Quaternion.identity);
+            wallW.transform.localScale = new Vector3(zQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
+            wallW.transform.Rotate(0, 90, 0);
+            GameObject wallE = Realtime.Instantiate(prefabName, new Vector3(x_max + 0.6f, 0, 0), Quaternion.identity);
+            wallE.transform.localScale = new Vector3(zQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
+            wallE.transform.Rotate(0, 90, 0);
+            
+            // wait a frame
+            yield return null;
+            GameObject roof = Realtime.Instantiate(prefabName, new Vector3(0, y_max + 10.0f, 0.0f), Quaternion.identity);
+            roof.transform.Rotate(90, 0, 0);
+            roof.transform.localScale = new Vector3(xQuadScale, zQuadScale, 0.0f);
 
-        GameObject roof = Instantiate(wallNormal, new Vector3(0, y_max + 10.0f, 0.0f), Quaternion.identity);
-        roof.transform.Rotate(90, 0, 0);
-        roof.transform.localScale = new Vector3(xQuadScale, zQuadScale, 0.0f);
+        }
+        else
+        {
+            GameObject wallN = Instantiate(wallNormal, new Vector3(0, 0, z_min - 0.6f), Quaternion.identity);
+            wallN.transform.localScale = new Vector3(xQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
+            GameObject wallS = Instantiate(wallNormal, new Vector3(0, 0, z_max + 0.6f), Quaternion.identity);
+            wallS.transform.localScale = new Vector3(xQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
 
-        GameObject lightObject = new GameObject("Light");
-        lightObject.transform.position = roof.transform.position - new Vector3(0.0f, 3.0f, 0.0f);
-        light = lightObject.AddComponent<Light>();
-        light.type = lightType;
-        light.intensity = 30;
-        lightObject.active = false;
-        lightObject.active = true;
+            GameObject wallW = Instantiate(wallNormal, new Vector3(x_min - 0.6f, 0, 0), Quaternion.identity);
+            wallW.transform.localScale = new Vector3(zQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
+            wallW.transform.Rotate(0, 90, 0);
+            GameObject wallE = Instantiate(wallNormal, new Vector3(x_max + 0.6f, 0, 0), Quaternion.identity);
+            wallE.transform.localScale = new Vector3(zQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
+            wallE.transform.Rotate(0, 90, 0);
+
+            GameObject roof = Instantiate(wallNormal, new Vector3(0, y_max + 10.0f, 0.0f), Quaternion.identity);
+            roof.transform.Rotate(90, 0, 0);
+            roof.transform.localScale = new Vector3(xQuadScale, zQuadScale, 0.0f);
+        }
+
+        // commented this out for performance reasons
+
+        //GameObject lightObject = new GameObject("Light");
+        //lightObject.transform.position = roof.transform.position - new Vector3(0.0f, 3.0f, 0.0f);
+        //light = lightObject.AddComponent<Light>();
+        //light.type = lightType;
+        //light.intensity = 30;
+        //lightObject.active = false;
+        //lightObject.active = true;
 
         //if(manager != null)
         //manager.createPlayer(0, 3, 0);
 
+        yield return null;
     }
 
     private IEnumerator GenerateFloor(bool replicate = false)
