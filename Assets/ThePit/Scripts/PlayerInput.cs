@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Normal.Realtime;
+using UnityEngine.EventSystems;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -40,11 +41,19 @@ public class PlayerInput : MonoBehaviour
 			// Make sure we own the transform so that RealtimeTransform knows to use this client's transform to synchronize remote clients.
 			_realtimeTransform.RequestOwnership();
 
-		// Do all input stuff
-		movementInput = new Vector2(
-			Input.GetAxis("Horizontal"),
-			Input.GetAxis("Vertical"));
-		jumpInputDown = Input.GetButtonDown("Jump");
-		mineInputDown = Input.GetButton("Fire1");
+		// Check if the mouse was clicked over a UI element
+		if (EventSystem.current.IsPointerOverGameObject())
+		{
+			Debug.Log("Clicked on the UI");
+		}
+		else
+		{
+			// Do all input stuff
+			movementInput = new Vector2(
+				Input.GetAxis("Horizontal"),
+				Input.GetAxis("Vertical"));
+			jumpInputDown = Input.GetButtonDown("Jump");
+			mineInputDown = Input.GetButton("Fire1");
+		}
 	}
 }
