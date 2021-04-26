@@ -11,7 +11,7 @@ public class Bombs : MonoBehaviour
 
     public GameObject particlesEffect;
 
-    float countdown;
+    public float countdown { get; private set; }
     bool hasExploded = false;
 
     [SerializeField]
@@ -93,7 +93,7 @@ public class Bombs : MonoBehaviour
 
     private void setInvisible()
 	{
-        GetComponent<MeshRenderer>().enabled = false;
+        GetComponentInChildren<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
 	}
 }

@@ -78,8 +78,6 @@ public class PlayerMovement : MonoBehaviour
 
 			Vector3 movement = transform.forward * acceleration;
 
-			Debug.Log("Change in acceleration: " + transform.forward);
-
 			Vector3 nextXZVelocity = new Vector3(
 				movement.x + rb.velocity.x,
 				0,
@@ -88,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
 			if (nextXZVelocity.magnitude < maxXZVelocity)
 			{
 				rb.velocity += movement;
-				Debug.Log("My new velocity: " + rb.velocity);
 			}
 		}
 
