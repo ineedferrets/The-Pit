@@ -115,6 +115,7 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
 
     IEnumerator DelayedStart(int waitTime)
     {
+        GameLogicScript_Marko.Instance.StartCube.SetActive(false);
 
         while (waitTime >= 0)
         {
