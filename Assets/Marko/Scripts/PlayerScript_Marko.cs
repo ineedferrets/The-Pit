@@ -10,6 +10,8 @@ public class PlayerScript_Marko : MonoBehaviour
     private static PlayerScript_Marko _instance;
     public static PlayerScript_Marko Instance { get { return _instance; } }
 
+    public string PlayerPrefabName;
+
     void Awake()
     {
 
@@ -31,8 +33,15 @@ public class PlayerScript_Marko : MonoBehaviour
         Vector3 position = new Vector3(-100, 1, 0);
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(0, 4), Random.Range(-2, 2));
 
+        if (string.IsNullOrEmpty(PlayerPrefabName))
+        {
+            Debug.LogError("The Player prefab name hasn't been set! Aborting network instantiation");
+            return;
+        }
+
+
         // Instantiate the CubePlayer for this client once we've successfully connected to the room
-        GameObject player = Realtime.Instantiate("Player_Marko2",                 // Prefab name
+        GameObject player = Realtime.Instantiate(PlayerPrefabName,                 // Prefab name
                             position: position + randomness,          // Start 1 meter in the air
                             rotation: Quaternion.identity, // No rotation
                        ownedByClient: true,                // Make sure the RealtimeView on this prefab is owned by this client
@@ -41,9 +50,6 @@ public class PlayerScript_Marko : MonoBehaviour
 
         GameLogicScript_Marko.Instance.PlayerSyncController = player.GetComponent<PlayerSyncController>();
         GameLogicScript_Marko.Instance.RoomDataSyncController.IncreaseNumberOfPlayers();
-
-
-        //LevelManagerScript_Marko.Instance.RoomDataSyncController.AddPlayerName(GameLogicScript_Marko.Instance.PlayerName);
 
     }
 

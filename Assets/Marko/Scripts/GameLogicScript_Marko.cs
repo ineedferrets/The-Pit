@@ -15,6 +15,7 @@ public class GameLogicScript_Marko : MonoBehaviour
     public RoomDataSyncController RoomDataSyncController;
     public PlayerSyncController PlayerSyncController;
     public MainMenuScript_Marko MainMenuScript;
+    public GenerateTerrain TerrainGenerator;
 
     public List<string> playerNames = new List<string>();
 
@@ -64,6 +65,7 @@ public class GameLogicScript_Marko : MonoBehaviour
 
     public void GoToGameScene()
     {
+        GeneratePit();
 
         Vector3 position = new Vector3(-5, 5, -5);
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(2, 4), Random.Range(-2, 2));
@@ -94,5 +96,10 @@ public class GameLogicScript_Marko : MonoBehaviour
 
         MainMenuScript.ShowInfo();
         MainMenuScript.ShowUI();
+    }
+
+    public void GeneratePit()
+    {
+        TerrainGenerator.GeneratePit();
     }
 }

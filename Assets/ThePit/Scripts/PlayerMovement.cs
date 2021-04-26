@@ -153,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public void LoseTreasure()
     {
+		countdown = 10f;
 		timerIsRunning = false;
 		holdingTreasure = false;
 		treasureLight.GetComponent<Light>().enabled = false;
@@ -160,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public void TakeTreasure()
     {
+		countdown = 10f;
 		timerIsRunning = true;
 		holdingTreasure = true;
 		treasureLight.GetComponent<Light>().enabled = true;
