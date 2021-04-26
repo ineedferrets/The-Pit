@@ -151,7 +151,6 @@ public class PlayerMovement : MonoBehaviour
 		return cameraCorrectedDirection;
 	}
 
-<<<<<<< HEAD
 	public void LoseTreasure()
     {
 		timerIsRunning = false;
@@ -166,7 +165,6 @@ public class PlayerMovement : MonoBehaviour
 		treasureLight.GetComponent<Light>().enabled = true;
 	}
 
-=======
 
 	/// <summary>
 	/// Updates camera ownership, both online and offline
@@ -206,5 +204,4 @@ public class PlayerMovement : MonoBehaviour
 				Destroy(playerCamera);
         }
     }
->>>>>>> cfa86e917e6f947de5820b10141e0cfd1e6a9ca0
 }

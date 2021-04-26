@@ -842,7 +842,6 @@ MonoBehaviour:
   pickaxe: {fileID: 0}
   rb: {fileID: 6510522086123694306}
   holdingTreasure: 0
-<<<<<<< HEAD
   treasureLight: {fileID: 7133375420254081567}
 --- !u!1 &7133375420254081567
 GameObject:
@@ -937,8 +936,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-=======
->>>>>>> cfa86e917e6f947de5820b10141e0cfd1e6a9ca0
 --- !u!1 &9140962595096640223
 GameObject:
   m_ObjectHideFlags: 0
