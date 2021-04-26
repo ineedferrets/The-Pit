@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _realtime: {fileID: 107524748}
-  PlayerPrefabName: Player_Marko3
+  PlayerPrefabName: Player_With_UI
 --- !u!114 &107524746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3651,7 +3651,10 @@ MonoBehaviour:
   PlayerSyncController: {fileID: 0}
   MainMenuScript: {fileID: 596030577}
   TerrainGenerator: {fileID: 1249075487}
+  playerMovement: {fileID: 0}
+  allPlayers: []
   playerNames: []
+  gameCompleted: 0
 --- !u!4 &1635573097
 Transform:
   m_ObjectHideFlags: 0
