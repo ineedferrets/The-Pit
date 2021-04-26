@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Normal.Realtime;
 
 public class Bombs : MonoBehaviour
 {
@@ -22,6 +23,13 @@ public class Bombs : MonoBehaviour
     [SerializeField]
     private float destroyGameObjectDelay = 2.0f;
     private bool toBeDestroyed = false;
+
+    private RealtimeView _realtimeView;
+
+    private void Awake()
+    {
+        _realtimeView = GetComponent<RealtimeView>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -66,8 +74,17 @@ public class Bombs : MonoBehaviour
 
         if (destroyGameObjectDelay <= 0.0f)
 		{
-            Destroy(gameObject);
-		}
+            // online?
+            if (_realtimeView != null && _realtimeView.isOwnedLocallySelf)
+            {
+                Realtime.Destroy(gameObject);
+            }
+            // offline?
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
 

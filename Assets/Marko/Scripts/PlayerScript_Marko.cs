@@ -11,6 +11,7 @@ public class PlayerScript_Marko : MonoBehaviour
     public static PlayerScript_Marko Instance { get { return _instance; } }
 
     public string PlayerPrefabName;
+    public GameObject GameManagerPrefab;
 
     void Awake()
     {
@@ -39,6 +40,18 @@ public class PlayerScript_Marko : MonoBehaviour
             return;
         }
 
+        if (GameManagerPrefab == null)
+        {
+            Debug.LogError("The gamemanager prefab hasn't been set! Aborting network instantiation");
+            return;
+        }
+
+
+        // Instantiate the CubePlayer for this client once we've successfully connected to the room
+        GameObject gameManager = Realtime.Instantiate(GameManagerPrefab.name,                 // Prefab name                            
+                       ownedByClient: false               // Make sure the RealtimeView on this prefab is owned by this client
+                         );
+
 
         // Instantiate the CubePlayer for this client once we've successfully connected to the room
         GameObject player = Realtime.Instantiate(PlayerPrefabName,                 // Prefab name
@@ -47,6 +60,7 @@ public class PlayerScript_Marko : MonoBehaviour
                        ownedByClient: true,                // Make sure the RealtimeView on this prefab is owned by this client
             preventOwnershipTakeover: true,                // Prevent other clients from calling RequestOwnership() on the root RealtimeView.
                          useInstance: realtime);           // Use the instance of Realtime that fired the didConnectToRoom event.
+
 
         GameLogicScript_Marko.Instance.playerMovement = player.GetComponent<PlayerMovement>();
         GameLogicScript_Marko.Instance.PlayerSyncController = player.GetComponent<PlayerSyncController>();

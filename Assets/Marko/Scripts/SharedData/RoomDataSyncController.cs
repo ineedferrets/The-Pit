@@ -17,6 +17,7 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
             previousModel.winnerNameDidChange -= WinnerNameDidChange;
             previousModel.clientWithTreasureDidChange -= ClientWithTreasureDidChange;
             previousModel.gameCompletedDidChange -= GameCompletedDidChange;
+            previousModel.gameStartedDidChange -= GameStartedDidChange;
         }
 
         if (currentModel != null)
@@ -29,6 +30,7 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
                 currentModel.winnerName = "";
                 currentModel.clientWithTreasure = -1;
                 currentModel.gameCompleted = false;
+                currentModel.gameStarted = false;
             }
             
             
@@ -41,6 +43,8 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
             currentModel.winnerNameDidChange += WinnerNameDidChange;
             currentModel.clientWithTreasureDidChange += ClientWithTreasureDidChange;
             currentModel.gameCompletedDidChange += GameCompletedDidChange;
+            previousModel.gameStartedDidChange += GameStartedDidChange;
+
         }
 
     }
@@ -74,6 +78,12 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
     {
         UpdateGameCompleted(model.gameCompleted);
     }
+
+    private void GameStartedDidChange(RoomDataModel model, bool value)
+    {
+        UpdateGameStarted(model.gameStarted);
+    }
+    
 
     private void UpdateNumberOfPlayers()
     {
@@ -125,6 +135,8 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
 
         GameLogicScript_Marko.Instance.GoToGameScene();
         GameLogicScript_Marko.Instance.MainMenuScript.SetStartMenuText("Dig the block to \nSTART the game");
+        GameLogicScript_Marko.Instance.gameStarted = true;
+        SetGameStarted(true);
     }
 
     private void UpdateWinnerName()
@@ -154,6 +166,11 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
     private void UpdateGameCompleted(bool value)
     {
         GameLogicScript_Marko.Instance.gameCompleted = value;
+    }
+
+    private void UpdateGameStarted(bool value)
+    {
+        GameLogicScript_Marko.Instance.gameStarted = value;
     }
 
     public void IncreaseNumberOfPlayers()
@@ -191,6 +208,11 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
     public void SetGameCompleted(bool value)
     {
         model.gameCompleted = value;
+    }
+
+    public void SetGameStarted(bool value)
+    {
+        model.gameStarted = value;
     }
 
 }
