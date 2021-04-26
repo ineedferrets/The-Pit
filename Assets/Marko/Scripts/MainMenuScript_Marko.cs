@@ -14,30 +14,13 @@ public class MainMenuScript_Marko : MonoBehaviour
     public Text _numberOfPlayersText;
     public Text _playerNamesText;
 
+    public TextMesh _winnerText;
+
 
     public GameObject Rules;
     public GameObject Controls;
     public GameObject UI;
 
-    /*
-    private static MainMenuScript_Marko _instance;
-    public static MainMenuScript_Marko Instance { get { return _instance; } }
-
-    void Awake()
-    {
-
-        if (Instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-    }
-    */
 
     public void StartGame()
     {
@@ -83,5 +66,21 @@ public class MainMenuScript_Marko : MonoBehaviour
     public void HideUI()
     {
         UI.SetActive(false);
+    }
+
+    public void SetWinnerText(int client, string name)
+    {
+
+        Debug.Log(client + " Winner:" + name);
+        Debug.Log("ClientID" + GameLogicScript_Marko.Instance.RoomDataSyncController.realtime.clientID);
+        _winnerText.text = "The winner is " + name + ".";
+        if (client == GameLogicScript_Marko.Instance.RoomDataSyncController.realtime.clientID)
+        {
+            _winnerText.text += "\n You did it!! Woooohoooo!!";
+        } else
+        {
+            _winnerText.text += "\n You get a participation trophy";
+        }
+
     }
 }

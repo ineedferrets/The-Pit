@@ -13,6 +13,8 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
         {
             previousModel.numberOfPlayersDidChange -= NumberOfPlayersDidChange;
             previousModel.playerNamesDidChange -= PlayerNamesDidChange;
+            previousModel.sceneNameDidChange -= SceneNameDidChange;
+            previousModel.winnerNameDidChange -= WinnerNameDidChange;
         }
 
         if (currentModel != null)
@@ -22,8 +24,9 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
                 currentModel.numberOfPlayers = 0;
                 currentModel.playerNames = "";
                 currentModel.sceneName = "LobbyScene";
+                currentModel.winnerName = "";
             }
-
+            
             
             UpdateNumberOfPlayers();
             UpdatePlayerNames();
@@ -32,6 +35,7 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
             currentModel.numberOfPlayersDidChange += NumberOfPlayersDidChange;
             currentModel.playerNamesDidChange += PlayerNamesDidChange;
             currentModel.sceneNameDidChange += SceneNameDidChange;
+            currentModel.winnerNameDidChange += WinnerNameDidChange;
         }
 
     }
@@ -49,6 +53,11 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
     private void SceneNameDidChange(RoomDataModel model, string value)
     {
         UpdateScene();
+    }
+
+    private void WinnerNameDidChange(RoomDataModel model, string value)
+    {
+        UpdateWinnerName();
     }
 
     private void UpdateNumberOfPlayers()
@@ -85,8 +94,16 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
                 Debug.Log("Unknown scene");  
                 break;
         }
-        
     }
+
+    private void UpdateWinnerName()
+    {
+        int clientID = int.Parse(model.winnerName.Split(';')[0]);
+        string winnerName = model.winnerName.Split(';')[1];
+
+        GameLogicScript_Marko.Instance.MainMenuScript.SetWinnerText(clientID, winnerName);    
+    }
+
     public void IncreaseNumberOfPlayers()
     {
         model.numberOfPlayers++;
@@ -105,6 +122,11 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
     public void SetSceneName(string name)
     {
         model.sceneName = name;
+    }
+
+    public void SetWinnerName(string name)
+    {
+        model.winnerName =  realtime.clientID+";"+ name;
     }
 
 
