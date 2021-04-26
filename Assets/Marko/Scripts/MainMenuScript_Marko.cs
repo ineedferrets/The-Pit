@@ -21,6 +21,8 @@ public class MainMenuScript_Marko : MonoBehaviour
     public GameObject Controls;
     public GameObject UI;
 
+    public TextMesh _startMenuText;
+
 
     public void StartGame()
     {
@@ -80,6 +82,10 @@ public class MainMenuScript_Marko : MonoBehaviour
             _winnerText.text += "\n You get a participation trophy";
         }
         
+    }
 
+    public void SetStartMenuText(string text)
+    {
+        _startMenuText.text = text;
     }
 }

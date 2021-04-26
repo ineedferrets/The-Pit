@@ -100,7 +100,9 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
                 GameLogicScript_Marko.Instance.GoToLobby();
                 break;
             case "GameScene":
-                GameLogicScript_Marko.Instance.GoToGameScene();
+
+                StartCoroutine(DelayedStart(5));
+
                 break;
             case "GameOverScene":
                 GameLogicScript_Marko.Instance.GoToGameOverScene();
@@ -109,6 +111,20 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
                 Debug.Log("Unknown scene");  
                 break;
         }
+    }
+
+    IEnumerator DelayedStart(int waitTime)
+    {
+
+        while (waitTime >= 0)
+        {
+            yield return new WaitForSeconds(1);
+            GameLogicScript_Marko.Instance.MainMenuScript.SetStartMenuText("Game is loading in " + waitTime);
+            waitTime--;
+        }
+
+        GameLogicScript_Marko.Instance.GoToGameScene();
+        GameLogicScript_Marko.Instance.MainMenuScript.SetStartMenuText("Dig the block to \nSTART the game");
     }
 
     private void UpdateWinnerName()
