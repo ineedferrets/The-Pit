@@ -3651,6 +3651,7 @@ MonoBehaviour:
   PlayerSyncController: {fileID: 0}
   MainMenuScript: {fileID: 596030577}
   TerrainGenerator: {fileID: 1249075487}
+  StartCube: {fileID: 69447893}
   playerMovement: {fileID: 0}
   allPlayers: []
   playerNames: []
