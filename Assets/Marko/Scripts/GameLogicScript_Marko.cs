@@ -110,7 +110,7 @@ public class GameLogicScript_Marko : MonoBehaviour
 
     public void GeneratePit(bool reset = false)
     {
-        TerrainGenerator.GeneratePit(reset: false);
+        TerrainGenerator.GeneratePit(reset: reset);
     }
 
     public void SetGameCompleted(bool value)

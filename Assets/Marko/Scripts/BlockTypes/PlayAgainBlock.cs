@@ -9,6 +9,7 @@ public class PlayAgainBlock : Block
     {
         //GameLogicScript_Marko.Instance.RoomDataSyncController.SetSceneName("LobbyScene");
         GameLogicScript_Marko.Instance.GoToLobby();
+        GameLogicScript_Marko.Instance.SetGameCompleted(true);
     }
 
 }

@@ -10,7 +10,11 @@ public class GenerateTerrain : MonoBehaviour
 
     public Light light;
     public LightType lightType = LightType.Point;
-
+    
+    /// <summary>
+    /// How many blocks per frame should be generated/destroyed?
+    /// </summary>
+    public int blocksPerFrame = 100;
     public int x_min, x_max, y_min, y_max, z_min, z_max;
     public int bedrockStartPoint, bedrockSecondLayer;
 
@@ -30,6 +34,11 @@ public class GenerateTerrain : MonoBehaviour
     /// For networking, call RealtimeGenerateTerrain.SetGenerationCompleted
     /// </summary>
     public bool generationCompleted;
+
+    /// <summary>
+    /// Is the destruction of the blocks completed?
+    /// </summary>
+    private bool destructionCompleted = true;
 
     /// <summary>
     /// Replicates in the network the cube spawning
@@ -102,13 +111,18 @@ public class GenerateTerrain : MonoBehaviour
     /// </summary>
     public void GeneratePit(bool reset = false)
     {
+        StartCoroutine(GeneratePitCorotuine(reset));
+    }
+
+    private IEnumerator GeneratePitCorotuine(bool reset = false)
+    {
         if (_replicateInNetwork)
         {
             // Attempt to get ownership...
             _realtimeGenerateTerrain.RequestOwnership();
             // If we don't own the generator, bail
             if (!_realtimeGenerateTerrain.isOwnedLocallySelf)
-                return;
+                yield break;
 
             Debug.Log("We own the generator.");
             
@@ -118,22 +132,29 @@ public class GenerateTerrain : MonoBehaviour
 
             // If somehow, the generation has started or is completed (maybe by another client over the network), bail
             if (generationStarted || generationCompleted)
-                return;
-
-            Debug.Log($"Generating Terrain...");
+                yield break;
 
             // Make sure list is init
             if (_blocks == null)
                 _blocks = new List<GameObject>();
-
+            
+            Coroutine coroutine = null;
             // Delete leftover blocks if needed
             if (_blocks.Count > 0)
-                DestroyAllBlocks(ref _blocks);
+                coroutine = StartCoroutine(DestroyAllBlocks(_blocks));
+
+            // Wait until destruction coroutine is done
+            while (!destructionCompleted)
+            {
+                yield return null;
+            }
+
+            Debug.Log("Generating terrain...");
 
             // Sync over the network
             SyncGenerationFlags(_realtimeGenerateTerrain);
             GenerateChestPos();
-            GenerateFloor(_replicateInNetwork);
+            coroutine = StartCoroutine(GenerateFloor(_replicateInNetwork));
             GenerateWalls();
         }
         else
@@ -144,10 +165,10 @@ public class GenerateTerrain : MonoBehaviour
 
             // Delete leftover blocks if needed
             if (_blocks.Count > 0)
-                DestroyAllBlocks(ref _blocks);
+                DestroyAllBlocks(_blocks);
 
             GenerateChestPos();
-            GenerateFloor(_replicateInNetwork);
+            StartCoroutine(GenerateFloor(_replicateInNetwork));
             GenerateWalls();
         }
     }
@@ -188,7 +209,7 @@ public class GenerateTerrain : MonoBehaviour
 
     }
 
-    private void GenerateFloor(bool replicate = false)
+    private IEnumerator GenerateFloor(bool replicate = false)
     {
         // If we are the first to generate terrain, mark the generation as started
         if (replicate && _realtimeGenerateTerrain)
@@ -196,6 +217,9 @@ public class GenerateTerrain : MonoBehaviour
         else
             generationStarted = true;
 
+
+        int blocksToGenerate = blocksPerFrame; // How many blocks to generate per frame?
+        int blocksGenerated = 0;
         for (int x = x_min; x <= x_max; x++)
         {
             for (int y = y_min; y <= y_max; y++)
@@ -230,6 +254,16 @@ public class GenerateTerrain : MonoBehaviour
 
                     // Add block to internal list
                     _blocks.Add(floor);
+
+                    // Check if we need to rest a frame
+                    blocksGenerated++;
+                    if (blocksGenerated >= blocksToGenerate)
+                    {
+                        // reset counter for next batch of blocks
+                        blocksGenerated = 0;
+                        // Wait a frame 
+                        yield return null;
+                    }
                 }
             }
         }
@@ -310,22 +344,48 @@ public class GenerateTerrain : MonoBehaviour
     }
 
 
-    private void DestroyAllBlocks(ref List<GameObject> blocks)
+    private IEnumerator DestroyAllBlocks(List<GameObject> blocks)
     {
         if (blocks == null)
-            return;
-        
+            yield break;
+
+        Debug.Log("Destroy coroutine blocks started!");
+
+        destructionCompleted = false;
+
+        int blocksToDestroy = blocksPerFrame; // Used to destroy a set of blocks every frame
+        int blocksDestroyed = 0;
         // Destroy blocks
-        foreach (var block in blocks)
+        for (int i = 0; i < blocks.Count; i++)
         {
+            var block = blocks[i];
             // Remove block from list
-            blocks.Remove(block);
-            // Destroy block
-            block.GetComponent<Block>().health = 0;
+            blocks.RemoveAt(i);
+            // Ammend index in loop
+            i--;
+            // Destroy block (if not destroyed by players already)
+            if (block != null)
+                block.GetComponent<Block>().health = 0;
+
+            // We will destroy 10 blocks before waiting a frame
+            blocksDestroyed++;
+            if (blocksDestroyed >= blocksToDestroy)
+            {
+                // Reset the number of blocks destroyed
+                blocksDestroyed = 0;
+                // wait a frame
+                yield return null;
+
+            }
         }
 
         // Reset generation flags for new use
         SetGenerationFlags(false, _realtimeGenerateTerrain);
+
+        destructionCompleted = true;
+
+        Debug.Log("Destroy coroutine blocks done!");
+
     }
 
 
