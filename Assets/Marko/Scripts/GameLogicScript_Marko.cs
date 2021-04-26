@@ -7,18 +7,14 @@ public class GameLogicScript_Marko : MonoBehaviour
 {
     
     private static GameLogicScript_Marko _instance;
-
     public static GameLogicScript_Marko Instance { get { return _instance; } }
 
-
-    public string PlayerName;
+    public string PlayerName = "I forgot to choose username";
     public Color PlayerColor;
-
 
     public RoomDataSyncController RoomDataSyncController;
     public PlayerSyncController PlayerSyncController;
     public MainMenuScript_Marko MainMenuScript;
-
 
     public List<string> playerNames = new List<string>();
 
