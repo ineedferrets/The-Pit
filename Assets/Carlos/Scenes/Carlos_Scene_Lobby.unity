@@ -676,7 +676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _obsoleteAppKey: 
   _normcoreAppSettings: {fileID: 11400000, guid: 9f711107c6fb5094783bf2e9da5f7859, type: 2}
-  _roomToJoinOnStart: Test Room
+  _roomToJoinOnStart: Carlos_Scene
   _joinRoomOnStart: 1
 --- !u!4 &107524749
 Transform:
@@ -2703,6 +2703,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9038bda1dccf74e8d84b8c6b1d7fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1249075487 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
+  m_PrefabInstance: {fileID: 1698921932}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249075483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645863bd2f47686498e9660f674343dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1249075488 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8893831335305336006, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
@@ -3639,6 +3650,7 @@ MonoBehaviour:
   RoomDataSyncController: {fileID: 107524746}
   PlayerSyncController: {fileID: 0}
   MainMenuScript: {fileID: 596030577}
+  TerrainGenerator: {fileID: 1249075487}
   playerNames: []
 --- !u!4 &1635573097
 Transform:

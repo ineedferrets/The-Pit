@@ -89,6 +89,9 @@ public class PlayerMovement : MonoBehaviour
             {
 				//TODO: Make actual win
 				Debug.Log("Win");
+				GameLogicScript_Marko.Instance.RoomDataSyncController.SetSceneName("GameOverScene");
+				GameLogicScript_Marko.Instance.RoomDataSyncController.SetWinnerName(GameLogicScript_Marko.Instance.PlayerName);
+
 				timerIsRunning = false;
 				countdown = 0;
             }
