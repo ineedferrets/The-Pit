@@ -91,7 +91,7 @@ public class PickaxeBehaviour : MonoBehaviour
                     //SendMessage Player x has taken treasure
                     GameLogicScript_Marko.Instance.RoomDataSyncController.SetClientWithTreasure(player.clientID);
 
-                    player.TakeTreasure();
+                    //player.TakeTreasure();
                 }
                 else
                 {
