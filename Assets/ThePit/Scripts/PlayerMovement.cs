@@ -91,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
+				GameLogicScript_Marko.Instance.GameOver();
 
 				GameLogicScript_Marko.Instance.RoomDataSyncController.SetSceneName("GameOverScene");
 				GameLogicScript_Marko.Instance.RoomDataSyncController.SetWinnerName(GameLogicScript_Marko.Instance.PlayerName);
@@ -171,6 +172,7 @@ public class PlayerMovement : MonoBehaviour
 		timerIsRunning = true;
 		holdingTreasure = true;
 		treasureLight.GetComponent<Light>().enabled = true;
+		GameLogicScript_Marko.Instance.TreasureTaken();
 	}
 
 

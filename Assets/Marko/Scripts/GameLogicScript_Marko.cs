@@ -27,6 +27,10 @@ public class GameLogicScript_Marko : MonoBehaviour
 
     public bool gameCompleted;
 
+    public AudioClip countdownTimer;
+    public AudioClip mainTheme;
+    public AudioClip gameOver;
+
     private bool quitGame = false;
     void Awake()
     {
@@ -121,5 +125,29 @@ public class GameLogicScript_Marko : MonoBehaviour
     {
         gameCompleted = value;
         RoomDataSyncController.SetGameCompleted(gameCompleted);
+    }
+
+    public void TreasureTaken()
+	{
+        AudioSource source = GetComponent<AudioSource>();
+
+        if (source != null)
+        {
+            source.clip = countdownTimer;
+            source.Play();
+        }
+	}
+
+    public void GameOver()
+	{
+        AudioSource source = GetComponent<AudioSource>();
+
+        if (source != null)
+		{
+            source.clip = mainTheme;
+            source.PlayDelayed(3.0f);
+            source.PlayOneShot(gameOver);
+		}
+
     }
 }
