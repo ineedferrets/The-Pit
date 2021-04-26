@@ -45,7 +45,7 @@ public class LightTimer : MonoBehaviour
         timeSinceInstantiation += Time.deltaTime;
         float pureSinValue;
 
-        if (bomb.countdown >= 1.0f)
+        if (bomb.countdown >= 2.0f)
             pureSinValue = Mathf.Sin(timeSinceInstantiation * slowFlashRate);
         else
             pureSinValue = Mathf.Sin(timeSinceInstantiation * fastFlashRate);
@@ -57,7 +57,7 @@ public class LightTimer : MonoBehaviour
 
         Debug.Log(pureSinValue);
 
-        if (bomb.countdown > 0.0f && 1.0f - pureSinValue < 0.05f )
+        if (bomb.countdown > 0.0f && 1.0f - pureSinValue < 0.08f )
             beepNoise.Play();
     }
 

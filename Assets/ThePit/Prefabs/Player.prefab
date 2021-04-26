@@ -540,6 +540,7 @@ GameObject:
   - component: {fileID: 5486097801750335934}
   - component: {fileID: 8795355099961416625}
   - component: {fileID: 3836964882776694936}
+  - component: {fileID: 3011718248109614131}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -678,8 +679,17 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 8
-  cutoutSize: 0.2
+  cutoutSize: 0.3
   falloffSize: 0.1
+--- !u!45 &3011718248109614131
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4225960836044138424}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 6e0c60c129a5c89438298217eb9a3a30, type: 2}
 --- !u!1 &6510522086123694335
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +840,7 @@ MonoBehaviour:
   playerInput: {fileID: 6510522086123694333}
   pickaxe: {fileID: 0}
   rb: {fileID: 6510522086123694306}
+  holdingTreasure: 0
 --- !u!1 &9140962595096640223
 GameObject:
   m_ObjectHideFlags: 0
