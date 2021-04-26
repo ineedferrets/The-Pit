@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private bool isJumping = false;
 
-	private float countdown = 10;
+	public float countdown = 10;
 	private bool timerIsRunning = false;
 
 	public bool holdingTreasure = false;

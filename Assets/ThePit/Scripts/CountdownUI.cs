@@ -19,8 +19,7 @@ public class CountdownUI : MonoBehaviour
     {
         if (player.holdingTreasure)
         {
-            //countdownText.text = "Hold It For: " + player.countdown.ToString();
-            countdownText.text = "I have it";
+            countdownText.text = "Hold It For: " + player.countdown.ToString();
         }
         else
         {
