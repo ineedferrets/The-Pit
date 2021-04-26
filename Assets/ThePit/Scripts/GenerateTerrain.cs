@@ -15,7 +15,7 @@ public class GenerateTerrain : MonoBehaviour
     public int bedrockStartPoint, bedrockSecondLayer;
 
     private int chest_x, chest_y, chest_z;
-    Manager manager;
+    //Manager manager;
 
     /// <summary>
     /// For networking, call RealtimeGenerateTerrain.SetGenerationStarted
@@ -74,9 +74,9 @@ public class GenerateTerrain : MonoBehaviour
         else
         {
 
-            var auxGo = GameObject.FindGameObjectWithTag("Manager");
-            if (auxGo != null)
-                manager = auxGo.GetComponent<Manager>();
+            //var auxGo = GameObject.FindGameObjectWithTag("Manager");
+            //if (auxGo != null)
+                //manager = auxGo.GetComponent<Manager>();
 
 
         }
@@ -123,8 +123,8 @@ public class GenerateTerrain : MonoBehaviour
         lightObject.active = false;
         lightObject.active = true;
 
-        if(manager != null)
-            manager.createPlayer(0, 3, 0);
+        //if(manager != null)
+            //manager.createPlayer(0, 3, 0);
 
 
     }
