@@ -15,6 +15,8 @@ public class BombSpawner : MonoBehaviour
     private Coroutine _spawnTNTCoroutine;
     [SerializeField]
     private float _timeToSpawnTNT =10f;
+    [SerializeField]
+    private float _minTimeToSpawn = 3f;
 
 
     // Start is called before the first frame update
@@ -51,14 +53,23 @@ public class BombSpawner : MonoBehaviour
         // Attempt to get ownership...
         _realtimeView.RequestOwnership();
 
+        int timesSpawned = 0; // keep track how many times we have spawned the bombs
+
         // while we are the owners of this manager...
         while (_realtimeView.isOwnedLocallySelf)
         {
 
-            if (GameLogicScript_Marko.Instance.gameStarted)
+            if (GameLogicScript_Marko.Instance.gameStarted && !GameLogicScript_Marko.Instance.gameCompleted)
             {
+                // the more it spawns, the less time there is for it to spawn
+                float secondsToWaitTNT = Random.Range(_minTimeToSpawn, _timeToSpawnTNT) - timesSpawned;
+                float secondsToWaitClaymore = Random.Range(_minTimeToSpawn, _timeToSpawnTNT) - timesSpawned;
+                if (secondsToWaitTNT < _minTimeToSpawn)
+                    secondsToWaitTNT = _minTimeToSpawn;
+                if (secondsToWaitClaymore < _minTimeToSpawn)
+                    secondsToWaitClaymore = _minTimeToSpawn;
                 // wait for some seconds
-                yield return new WaitForSeconds(_timeToSpawnTNT);
+                yield return new WaitForSeconds(secondsToWaitTNT);
 
                 // Calculate random spawn position
                 spawnPos.x = Random.Range(x_min, x_max);
@@ -74,7 +85,7 @@ public class BombSpawner : MonoBehaviour
                 // Spawn a TNT over the network
                 Realtime.Instantiate(ClaymorePrefab, position: spawnPos, rotation: Quaternion.identity);
 
-
+                timesSpawned++;
             }
         }
     }
