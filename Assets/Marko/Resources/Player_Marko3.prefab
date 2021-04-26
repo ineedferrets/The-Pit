@@ -824,7 +824,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6353021423387175610}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -898,7 +898,7 @@ GameObject:
   - component: {fileID: 4239189576365586593}
   - component: {fileID: 4239189576365586592}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player_Marko3
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
