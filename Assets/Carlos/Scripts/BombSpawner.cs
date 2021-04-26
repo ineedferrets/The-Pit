@@ -56,7 +56,7 @@ public class BombSpawner : MonoBehaviour
         int timesSpawned = 0; // keep track how many times we have spawned the bombs
 
         // while we are the owners of this manager...
-        while (_realtimeView.isOwnedLocallySelf)
+        while (_realtimeView.isOwnedLocallySelf && GameLogicScript_Marko.Instance.gameStarted && !GameLogicScript_Marko.Instance.gameCompleted)
         {
 
             if (GameLogicScript_Marko.Instance.gameStarted && !GameLogicScript_Marko.Instance.gameCompleted)
