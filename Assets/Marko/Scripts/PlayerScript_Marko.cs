@@ -53,6 +53,8 @@ public class PlayerScript_Marko : MonoBehaviour
         GameLogicScript_Marko.Instance.RoomDataSyncController.IncreaseNumberOfPlayers();
 
         GameLogicScript_Marko.Instance.playerMovement.clientID = realtime.clientID;
+
+        GameLogicScript_Marko.Instance.PlayerSyncController.SetPlayerColor(Random.ColorHSV());
     }
 
 
