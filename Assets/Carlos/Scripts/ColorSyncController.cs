@@ -34,9 +34,6 @@ public class ColorSyncController : RealtimeComponent<ColorSyncModel_Carlos>
         {
             // Unregister from events
             previousModel.colorDidChange -= ColorDidChange;
-            previousModel.positionDidChange -= PositionDidChange;
-            previousModel.rotationDidChange -= RotationDidChange;
-            previousModel.scaleDidChange -= ScaleDidChange;
 
         }
 
@@ -49,25 +46,13 @@ public class ColorSyncController : RealtimeComponent<ColorSyncModel_Carlos>
             if (currentModel.isFreshModel)
             {
                 currentModel.color = _meshRenderer.material.color;
-                currentModel.position = _transform.position;
-                currentModel.rotation = _transform.rotation;
-                currentModel.scale = _transform.localScale;
             }
 
             // Update the mesh renderer to match the new model
             UpdateMeshRendererColor();
 
-            // Update transform
-            UpdatePosition();
-            UpdateRotation();
-            UpdateScale();
-
             // Register for events so we will know if the color changes later
             currentModel.colorDidChange += ColorDidChange;
-            currentModel.positionDidChange += PositionDidChange;
-            currentModel.rotationDidChange += RotationDidChange;
-            currentModel.scaleDidChange += ScaleDidChange;
-
         }
 
     }
@@ -88,46 +73,6 @@ public class ColorSyncController : RealtimeComponent<ColorSyncModel_Carlos>
         _meshRenderer.material.color = model.color;
     }
 
-    private void PositionDidChange(ColorSyncModel_Carlos model, Vector3 value)
-    {
-        // Update transform
-        UpdatePosition();
-    }
-
-    private void UpdatePosition()
-    {
-        // Get the transform from the model and set it on our transform
-        _transform.position = model.position;
-
-    }
-
-    private void RotationDidChange(ColorSyncModel_Carlos model, Quaternion value)
-    {
-        // Update transform
-        UpdateRotation();
-    }
-
-    private void UpdateRotation()
-    {
-        // Get the transform from the model and set it on our transform
-        _transform.rotation = model.rotation;
-
-    }
-
-    private void ScaleDidChange(ColorSyncModel_Carlos model, Vector3 value)
-    {
-        // Update transform
-        UpdateScale();
-    }
-
-    private void UpdateScale()
-    {
-        // Get the transform from the model and set it on our transform
-        _transform.localScale = model.scale;
-
-    }
-
-
     #endregion
 
     #region Public Methods
@@ -138,22 +83,6 @@ public class ColorSyncController : RealtimeComponent<ColorSyncModel_Carlos>
         // this will fire the colorChanged event on the model, which will update the renderer for both the local player and all remote players
         model.color = color;
     }
-
-    public void SetPosition(Vector3 newPos)
-    {
-        model.position = newPos;
-    }
-
-    public void SetRotation(Quaternion newRot)
-    {
-        model.rotation = newRot;
-    }
-
-    public void SetScale(Vector3 newScale)
-    {
-        model.scale = newScale;
-    }
-
     #endregion
 
 }

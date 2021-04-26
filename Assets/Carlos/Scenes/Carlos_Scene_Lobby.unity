@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _realtime: {fileID: 107524748}
-  PlayerPrefabName: Player_Marko2
+  PlayerPrefabName: Player_Carlos_v3
 --- !u!114 &107524746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4008,7 +4008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8893831335305336006, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8893831335305336006, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
       propertyPath: m_LocalPosition.x
