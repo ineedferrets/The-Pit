@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Normal.Realtime;
 
 public class GameLogicScript_Marko : MonoBehaviour
 {
@@ -25,15 +26,30 @@ public class GameLogicScript_Marko : MonoBehaviour
 
     public List<string> playerNames = new List<string>();
 
+
+    public bool gameStarted;
     public bool gameCompleted;
 
     public AudioClip countdownTimer;
     public AudioClip mainTheme;
     public AudioClip gameOver;
 
+    private bool _ownershipRequested;
+
+    public GameObject TNT;
+    public GameObject Claymore;
+    private Coroutine _spawnTNTCoroutine;
+    private float _timeToSpawnTNT = 1f;
+
+
     private bool quitGame = false;
     void Awake()
     {
+        // get refs
+        RoomDataSyncController = GetComponent<RoomDataSyncController>();
+        StartCube = FindObjectOfType<StartGameBlock>().gameObject;
+        MainMenuScript = FindObjectOfType<MainMenuScript_Marko>();
+        TerrainGenerator = FindObjectOfType<GenerateTerrain>();
 
         if (Instance == null)
         {
@@ -60,6 +76,15 @@ public class GameLogicScript_Marko : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        // clear ownership if we own the gamemanager
+        if (RoomDataSyncController.isOwnedLocallySelf)
+        {
+            RoomDataSyncController.ClearOwnership();
+        }
+    }
+
     public void ExitGame()
     {
         if (quitGame == false)
@@ -77,6 +102,49 @@ public class GameLogicScript_Marko : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         Application.Quit();
+    }
+
+    IEnumerator SpawnTNT()
+    {
+        string TNTPrefab = "";
+        string ClaymorePrefab = "";
+        Vector3 spawnPos = new Vector3();
+
+        if (TNT == null || Claymore == null)
+        {
+            Debug.LogError("TNT or Claymore prefab missing in gamemanager!");
+        }
+        else
+        {
+            TNTPrefab = TNT.name;
+            ClaymorePrefab = Claymore.name;
+
+        }
+        // while we are the owners of this manager...
+        while (RoomDataSyncController.isOwnedLocallySelf)
+        {
+            if (gameStarted)
+            {
+                // Calculate random spawn position
+                spawnPos.x = Random.Range(TerrainGenerator.x_min, TerrainGenerator.x_max);
+                spawnPos.y = Random.Range(TerrainGenerator.y_min, TerrainGenerator.y_max);
+                spawnPos.z = Random.Range(TerrainGenerator.z_min, TerrainGenerator.z_max);
+                // Spawn a TNT over the network
+                Realtime.Instantiate(TNTPrefab, position: spawnPos, rotation: Quaternion.identity);
+
+                // Calculate random spawn position
+                spawnPos.x = Random.Range(TerrainGenerator.x_min, TerrainGenerator.x_max);
+                spawnPos.y = Random.Range(TerrainGenerator.y_min, TerrainGenerator.y_max);
+                spawnPos.z = Random.Range(TerrainGenerator.z_min, TerrainGenerator.z_max);
+                // Spawn a TNT over the network
+                Realtime.Instantiate(ClaymorePrefab, position: spawnPos, rotation: Quaternion.identity);
+
+                // wait for a frame
+                yield return new WaitForSeconds(_timeToSpawnTNT);
+
+
+            }
+        }
     }
 
     public void GoToGameScene()
@@ -119,6 +187,16 @@ public class GameLogicScript_Marko : MonoBehaviour
     public void GeneratePit(bool reset = false)
     {
         TerrainGenerator.GeneratePit(reset: reset);
+    }
+
+    /// <summary>
+    /// Starts the coroutine for spawning bombs
+    /// </summary>
+    public void SpawnBombs()
+    {
+        // Start coroutine for TNT spawning during play
+        _spawnTNTCoroutine = StartCoroutine(SpawnTNT());
+
     }
 
     public void SetGameCompleted(bool value)
