@@ -4,7 +4,7 @@ using UnityEngine;
 using Normal.Realtime;
 using Normal.Realtime.Serialization;
 
-[RealtimeModel]
+[RealtimeModel(createMetaModel: true)]
 public partial class RoomDataModel
 {
     [RealtimeProperty(1, true, true)]
@@ -24,6 +24,9 @@ public partial class RoomDataModel
 
     [RealtimeProperty(6, true, true)]
     private bool _gameCompleted;
+
+    [RealtimeProperty(7, true, true)]
+    private bool _gameStarted;
 
 }
 
@@ -101,6 +104,18 @@ public partial class RoomDataModel : RealtimeModel {
         }
     }
     
+    public bool gameStarted {
+        get {
+            return _cache.LookForValueInCache(_gameStarted, entry => entry.gameStartedSet, entry => entry.gameStarted);
+        }
+        set {
+            if (this.gameStarted == value) return;
+            _cache.UpdateLocalCache(entry => { entry.gameStartedSet = true; entry.gameStarted = value; return entry; });
+            InvalidateReliableLength();
+            FireGameStartedDidChange(value);
+        }
+    }
+    
     public delegate void PropertyChangedHandler<in T>(RoomDataModel model, T value);
     public event PropertyChangedHandler<int> numberOfPlayersDidChange;
     public event PropertyChangedHandler<string> playerNamesDidChange;
@@ -108,6 +123,7 @@ public partial class RoomDataModel : RealtimeModel {
     public event PropertyChangedHandler<string> winnerNameDidChange;
     public event PropertyChangedHandler<int> clientWithTreasureDidChange;
     public event PropertyChangedHandler<bool> gameCompletedDidChange;
+    public event PropertyChangedHandler<bool> gameStartedDidChange;
     
     private struct LocalCacheEntry {
         public bool numberOfPlayersSet;
@@ -122,6 +138,8 @@ public partial class RoomDataModel : RealtimeModel {
         public int clientWithTreasure;
         public bool gameCompletedSet;
         public bool gameCompleted;
+        public bool gameStartedSet;
+        public bool gameStarted;
     }
     
     private LocalChangeCache<LocalCacheEntry> _cache = new LocalChangeCache<LocalCacheEntry>();
@@ -133,12 +151,13 @@ public partial class RoomDataModel : RealtimeModel {
         WinnerName = 4,
         ClientWithTreasure = 5,
         GameCompleted = 6,
+        GameStarted = 7,
     }
     
     public RoomDataModel() : this(null) {
     }
     
-    public RoomDataModel(RealtimeModel parent) : base(null, parent) {
+    public RoomDataModel(RealtimeModel parent) : base(new MetaModel(), parent) {
     }
     
     protected override void OnParentReplaced(RealtimeModel previousParent, RealtimeModel currentParent) {
@@ -193,8 +212,16 @@ public partial class RoomDataModel : RealtimeModel {
         }
     }
     
+    private void FireGameStartedDidChange(bool value) {
+        try {
+            gameStartedDidChange?.Invoke(this, value);
+        } catch (System.Exception exception) {
+            UnityEngine.Debug.LogException(exception);
+        }
+    }
+    
     protected override int WriteLength(StreamContext context) {
-        int length = 0;
+        int length = MetaModelWriteLength(context);
         if (context.fullModel) {
             FlattenCache();
             length += WriteStream.WriteVarint32Length((uint)PropertyID.NumberOfPlayers, (uint)_numberOfPlayers);
@@ -203,6 +230,7 @@ public partial class RoomDataModel : RealtimeModel {
             length += WriteStream.WriteStringLength((uint)PropertyID.WinnerName, _winnerName);
             length += WriteStream.WriteVarint32Length((uint)PropertyID.ClientWithTreasure, (uint)_clientWithTreasure);
             length += WriteStream.WriteVarint32Length((uint)PropertyID.GameCompleted, _gameCompleted ? 1u : 0u);
+            length += WriteStream.WriteVarint32Length((uint)PropertyID.GameStarted, _gameStarted ? 1u : 0u);
         } else if (context.reliableChannel) {
             LocalCacheEntry entry = _cache.localCache;
             if (entry.numberOfPlayersSet) {
@@ -223,11 +251,16 @@ public partial class RoomDataModel : RealtimeModel {
             if (entry.gameCompletedSet) {
                 length += WriteStream.WriteVarint32Length((uint)PropertyID.GameCompleted, entry.gameCompleted ? 1u : 0u);
             }
+            if (entry.gameStartedSet) {
+                length += WriteStream.WriteVarint32Length((uint)PropertyID.GameStarted, entry.gameStarted ? 1u : 0u);
+            }
         }
         return length;
     }
     
     protected override void Write(WriteStream stream, StreamContext context) {
+        WriteMetaModel(stream, context);
+        
         var didWriteProperties = false;
         
         if (context.fullModel) {
@@ -237,9 +270,10 @@ public partial class RoomDataModel : RealtimeModel {
             stream.WriteString((uint)PropertyID.WinnerName, _winnerName);
             stream.WriteVarint32((uint)PropertyID.ClientWithTreasure, (uint)_clientWithTreasure);
             stream.WriteVarint32((uint)PropertyID.GameCompleted, _gameCompleted ? 1u : 0u);
+            stream.WriteVarint32((uint)PropertyID.GameStarted, _gameStarted ? 1u : 0u);
         } else if (context.reliableChannel) {
             LocalCacheEntry entry = _cache.localCache;
-            if (entry.numberOfPlayersSet || entry.playerNamesSet || entry.sceneNameSet || entry.winnerNameSet || entry.clientWithTreasureSet || entry.gameCompletedSet) {
+            if (entry.numberOfPlayersSet || entry.playerNamesSet || entry.sceneNameSet || entry.winnerNameSet || entry.clientWithTreasureSet || entry.gameCompletedSet || entry.gameStartedSet) {
                 _cache.PushLocalCacheToInflight(context.updateID);
                 ClearCacheOnStreamCallback(context);
             }
@@ -267,6 +301,10 @@ public partial class RoomDataModel : RealtimeModel {
                 stream.WriteVarint32((uint)PropertyID.GameCompleted, entry.gameCompleted ? 1u : 0u);
                 didWriteProperties = true;
             }
+            if (entry.gameStartedSet) {
+                stream.WriteVarint32((uint)PropertyID.GameStarted, entry.gameStarted ? 1u : 0u);
+                didWriteProperties = true;
+            }
             
             if (didWriteProperties) InvalidateReliableLength();
         }
@@ -275,6 +313,10 @@ public partial class RoomDataModel : RealtimeModel {
     protected override void Read(ReadStream stream, StreamContext context) {
         while (stream.ReadNextPropertyID(out uint propertyID)) {
             switch (propertyID) {
+                case MetaModel.ReservedPropertyID: {
+                    ReadMetaModel(stream, context);
+                    break;
+                }
                 case (uint)PropertyID.NumberOfPlayers: {
                     int previousValue = _numberOfPlayers;
                     _numberOfPlayers = (int)stream.ReadVarint32();
@@ -329,6 +371,15 @@ public partial class RoomDataModel : RealtimeModel {
                     }
                     break;
                 }
+                case (uint)PropertyID.GameStarted: {
+                    bool previousValue = _gameStarted;
+                    _gameStarted = (stream.ReadVarint32() != 0);
+                    bool gameStartedExistsInChangeCache = _cache.ValueExistsInCache(entry => entry.gameStartedSet);
+                    if (!gameStartedExistsInChangeCache && _gameStarted != previousValue) {
+                        FireGameStartedDidChange(_gameStarted);
+                    }
+                    break;
+                }
                 default: {
                     stream.SkipProperty();
                     break;
@@ -348,6 +399,7 @@ public partial class RoomDataModel : RealtimeModel {
         _winnerName = winnerName;
         _clientWithTreasure = clientWithTreasure;
         _gameCompleted = gameCompleted;
+        _gameStarted = gameStarted;
         _cache.Clear();
     }
     
