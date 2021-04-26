@@ -10,5 +10,7 @@ public class StartGameBlock : Block
     {
         GameLogicScript_Marko.Instance.PlayerName = GameLogicScript_Marko.Instance.MainMenuScript.Username.text;
         GameLogicScript_Marko.Instance.RoomDataSyncController.SetSceneName("GameScene");
+
+        GameLogicScript_Marko.Instance.GeneratePit();
     }
 }

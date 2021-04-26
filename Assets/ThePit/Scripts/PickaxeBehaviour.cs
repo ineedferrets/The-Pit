@@ -87,6 +87,10 @@ public class PickaxeBehaviour : MonoBehaviour
                 if (block.blockType == BlockType.Treasure && !player.holdingTreasure)
                 {
                     block.AddHealth(-block.health);
+
+                    //SendMessage Player x has taken treasure
+                    GameLogicScript_Marko.Instance.RoomDataSyncController.SetClientWithTreasure(GameLogicScript_Marko.Instance.RoomDataSyncController.realtime.clientID);
+
                     player.TakeTreasure();
                 }
                 else

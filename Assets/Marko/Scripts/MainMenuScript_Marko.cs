@@ -70,7 +70,7 @@ public class MainMenuScript_Marko : MonoBehaviour
 
     public void SetWinnerText(int client, string name)
     {
-
+        
         _winnerText.text = "The winner is " + name + ".";
         if (client == GameLogicScript_Marko.Instance.RoomDataSyncController.realtime.clientID)
         {
@@ -79,6 +79,7 @@ public class MainMenuScript_Marko : MonoBehaviour
         {
             _winnerText.text += "\n You get a participation trophy";
         }
+        
 
     }
 }

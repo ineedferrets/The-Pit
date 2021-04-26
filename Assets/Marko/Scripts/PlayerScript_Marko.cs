@@ -48,9 +48,11 @@ public class PlayerScript_Marko : MonoBehaviour
             preventOwnershipTakeover: true,                // Prevent other clients from calling RequestOwnership() on the root RealtimeView.
                          useInstance: realtime);           // Use the instance of Realtime that fired the didConnectToRoom event.
 
+        GameLogicScript_Marko.Instance.playerMovement = player.GetComponent<PlayerMovement>();
         GameLogicScript_Marko.Instance.PlayerSyncController = player.GetComponent<PlayerSyncController>();
         GameLogicScript_Marko.Instance.RoomDataSyncController.IncreaseNumberOfPlayers();
 
+        GameLogicScript_Marko.Instance.playerMovement.clientID = realtime.clientID;
     }
 
 

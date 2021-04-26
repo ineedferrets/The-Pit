@@ -17,6 +17,10 @@ public class GameLogicScript_Marko : MonoBehaviour
     public MainMenuScript_Marko MainMenuScript;
     public GenerateTerrain TerrainGenerator;
 
+    public PlayerMovement playerMovement;
+
+    public List<PlayerMovement> allPlayers = new List<PlayerMovement>();
+
     public List<string> playerNames = new List<string>();
 
 
@@ -42,6 +46,11 @@ public class GameLogicScript_Marko : MonoBehaviour
         {
             ExitGame();
         }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            RoomDataSyncController.SetClientWithTreasure(RoomDataSyncController.realtime.clientID);
+        }
     }
 
     public void ExitGame()
@@ -65,7 +74,7 @@ public class GameLogicScript_Marko : MonoBehaviour
 
     public void GoToGameScene()
     {
-        GeneratePit();
+        //GeneratePit();
 
         Vector3 position = new Vector3(-5, 5, -5);
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(2, 4), Random.Range(-2, 2));

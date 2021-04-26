@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private PickaxeBehaviour pickaxe;
 	[SerializeField] private Rigidbody rb;
 
+	public int clientID = -1;
+
 	private bool isJumping = false;
 
 	private float countdown = 10;
@@ -22,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public bool holdingTreasure = false;
 	public GameObject treasureLight;
-
+	
 	/// <summary>
 	/// Network info
 	/// </summary>
@@ -74,6 +76,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+		GameLogicScript_Marko.Instance.allPlayers.Add(this);
+
 		UpdateCameraOwnership();
     }
 
@@ -87,8 +91,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-				//TODO: Make actual win
-				Debug.Log("Win");
+
 				GameLogicScript_Marko.Instance.RoomDataSyncController.SetSceneName("GameOverScene");
 				GameLogicScript_Marko.Instance.RoomDataSyncController.SetWinnerName(GameLogicScript_Marko.Instance.PlayerName);
 
@@ -209,4 +212,5 @@ public class PlayerMovement : MonoBehaviour
 				Destroy(playerCamera);
         }
     }
+
 }

@@ -9,7 +9,6 @@ public class LevelManagerScript_Marko : MonoBehaviour
     public static LevelManagerScript_Marko Instance { get { return _instance; } }
 
 
-    public RoomDataSyncController RoomDataSyncController;
     public PlayerSyncController PlayerSyncController;
     public UIManagerScript_Marko UIManagerScript;
 

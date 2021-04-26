@@ -15,6 +15,7 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
             previousModel.playerNamesDidChange -= PlayerNamesDidChange;
             previousModel.sceneNameDidChange -= SceneNameDidChange;
             previousModel.winnerNameDidChange -= WinnerNameDidChange;
+            previousModel.clientWithTreasureDidChange -= ClientWithTreasureDidChange;
         }
 
         if (currentModel != null)
@@ -25,17 +26,18 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
                 currentModel.playerNames = "";
                 currentModel.sceneName = "LobbyScene";
                 currentModel.winnerName = "";
+                currentModel.clientWithTreasure = -1;
             }
             
             
             UpdateNumberOfPlayers();
             UpdatePlayerNames();
-            //UpdateScene();
 
             currentModel.numberOfPlayersDidChange += NumberOfPlayersDidChange;
             currentModel.playerNamesDidChange += PlayerNamesDidChange;
             currentModel.sceneNameDidChange += SceneNameDidChange;
             currentModel.winnerNameDidChange += WinnerNameDidChange;
+            currentModel.clientWithTreasureDidChange += ClientWithTreasureDidChange;
         }
 
     }
@@ -58,6 +60,11 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
     private void WinnerNameDidChange(RoomDataModel model, string value)
     {
         UpdateWinnerName();
+    }
+
+    private void ClientWithTreasureDidChange(RoomDataModel model, int value)
+    {
+        UpdateClientWithTreasure();
     }
 
     private void UpdateNumberOfPlayers()
@@ -104,6 +111,23 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
         GameLogicScript_Marko.Instance.MainMenuScript.SetWinnerText(clientID, winnerName);    
     }
 
+    private void UpdateClientWithTreasure()
+    {
+        
+        foreach(PlayerMovement pm in GameLogicScript_Marko.Instance.allPlayers)
+        {
+            if (pm.clientID == model.clientWithTreasure)
+            {
+                Debug.Log(pm.clientID + " took the treasure");
+                pm.TakeTreasure();
+            } else
+            {
+                Debug.Log(pm.clientID + " lost the treasure");
+                pm.LoseTreasure();
+            }
+        }
+    }
+
     public void IncreaseNumberOfPlayers()
     {
         model.numberOfPlayers++;
@@ -129,5 +153,9 @@ public class RoomDataSyncController : RealtimeComponent<RoomDataModel>
         model.winnerName =  realtime.clientID+";"+ name;
     }
 
+    public void SetClientWithTreasure(int id)
+    {
+        model.clientWithTreasure = id;
+    }
 
 }
