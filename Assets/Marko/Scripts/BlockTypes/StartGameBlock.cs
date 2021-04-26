@@ -17,12 +17,15 @@ public class StartGameBlock : Block
         if (GameLogicScript_Marko.Instance.gameCompleted)
         {
             GameLogicScript_Marko.Instance.gameCompleted = false;
+            GameLogicScript_Marko.Instance.gameStarted = false;
+            GameLogicScript_Marko.Instance.SpawnBombs();
             GameLogicScript_Marko.Instance.GeneratePit(reset: true);
-            //GameLogicScript_Marko.Instance.spawn
         }
         else
         {
+            GameLogicScript_Marko.Instance.SetGameStarted(true);
             GameLogicScript_Marko.Instance.GeneratePit();
+            GameLogicScript_Marko.Instance.SpawnBombs();
         }
     }
 }

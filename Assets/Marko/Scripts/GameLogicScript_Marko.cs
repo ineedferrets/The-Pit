@@ -159,7 +159,8 @@ public class GameLogicScript_Marko : MonoBehaviour
     public void SpawnBombs()
     {
         // Start coroutine for TNT spawning during play
-        _spawnTNTCoroutine = bombSpawner.SpawnBombs();
+        bombSpawner.SpawnBombs();
+        //_spawnTNTCoroutine = bombSpawner.SpawnBombs();
 
     }
 
@@ -167,6 +168,12 @@ public class GameLogicScript_Marko : MonoBehaviour
     {
         gameCompleted = value;
         RoomDataSyncController.SetGameCompleted(gameCompleted);
+    }
+
+    public void SetGameStarted(bool value)
+    {
+        gameStarted = value;
+        RoomDataSyncController.SetGameStarted(value);
     }
 
     public void TreasureTaken()
