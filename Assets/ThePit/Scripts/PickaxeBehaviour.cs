@@ -14,19 +14,22 @@ public class PickaxeBehaviour : MonoBehaviour
     private float pitch;
 
     private Quaternion initialRotation;
-    Manager manager;
-    private bool caughtTreasure;
+    //Manager manager;
+    //private bool holdingTreasure;
+    private PlayerMovement player;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        var managerGo = GameObject.FindGameObjectWithTag("Manager");
-        if (managerGo != null)
-            manager = managerGo.GetComponent<Manager>();
-        else
-            Debug.LogError("Manager not found!");
-        caughtTreasure = false;
+        //var managerGo = GameObject.FindGameObjectWithTag("Manager");
+        //if (managerGo != null)
+        //    manager = managerGo.GetComponent<Manager>();
+        //else
+        //    Debug.LogError("Manager not found!");
+
+        //holdingTreasure = false;
+        player = gameObject.transform.parent.gameObject.GetComponent<PlayerMovement>();
 
         initialRotation = transform.localRotation;
         startRotationX = -45f;
@@ -65,7 +68,7 @@ public class PickaxeBehaviour : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {//TODO
+    {
         if (other.gameObject.tag == "Ground")
         {
             Block block = other.gameObject.GetComponent<Block>();
@@ -81,24 +84,24 @@ public class PickaxeBehaviour : MonoBehaviour
                     Debug.LogError("audiosource not present in player!");
                 }
 
-                block.health--; // this updates the block internal logic as well
-                if (block.health < 1)
+                if (block.blockType == BlockType.Treasure && !player.holdingTreasure)
                 {
-                    //TODO: Gives points to player that killed it - gameobject that holds the tool.
-
-                    // Destroy is handled inside of the block for networking reasons now
-                    //Destroy(other.gameObject);
+                    block.AddHealth(-block.health);
+                    player.holdingTreasure = true;
                 }
+                else
+                {
+                    block.health--; // this updates the block internal logic as well
+                }
+                
+                //if (block.health < 1)
+                //{
+                //    //TODO: Gives points to player that killed it - gameobject that holds the tool.
 
-            }
-            else if (block != null && block.blockType==BlockType.Treasure && !caughtTreasure)
-            {
-                caughtTreasure = true;
-                GameObject player = gameObject.transform.parent.gameObject;
-                if (manager != null)
-                    manager.PlayerCaughtTreasure(player);
-                block.AddHealth(-5);
-              
+                //    // Destroy is handled inside of the block for networking reasons now
+                //    //Destroy(other.gameObject);
+                //}
+
             }
             else
             {

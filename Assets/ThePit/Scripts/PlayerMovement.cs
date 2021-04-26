@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
 	private bool isJumping = false;
 
+	public bool holdingTreasure = false;
+
 	private void Awake()
 	{
 		if (playerInput == null)
@@ -67,6 +69,10 @@ public class PlayerMovement : MonoBehaviour
 	}
 	void Update()
     {
+		if (holdingTreasure)
+        {
+			Debug.Log("Holding it");
+        }
 
 		Vector3 direction = calculateMovementDirection(playerInput, playerCamera);
 
