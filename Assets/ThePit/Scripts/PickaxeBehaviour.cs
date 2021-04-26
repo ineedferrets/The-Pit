@@ -108,6 +108,19 @@ public class PickaxeBehaviour : MonoBehaviour
                 Debug.LogError("The block couldn't be found... even though it is there?");
             }
         }
+        else if (other.gameObject.tag == "Player")
+        {
+            PlayerMovement otherPlayer = other.gameObject.GetComponent<PlayerMovement>();
+            if(otherPlayer != null)
+            {
+                if (otherPlayer.holdingTreasure)
+                {
+                    otherPlayer.LoseTreasure();
+                    player.TakeTreasure();
+
+                }
+            }
+        }
 
     }
 
