@@ -201,7 +201,7 @@ public class GenerateTerrain : MonoBehaviour
             
             // wait a frame
             yield return null;
-            GameObject roof = Realtime.Instantiate(prefabName, new Vector3(0, y_max + 10.0f, 0.0f), Quaternion.identity);
+            GameObject roof = Realtime.Instantiate(prefabName, new Vector3(0, y_max + 6.7f, 0.0f), Quaternion.identity);
             roof.transform.Rotate(90, 0, 0);
             roof.transform.localScale = new Vector3(xQuadScale, zQuadScale, 0.0f);
 
@@ -220,7 +220,7 @@ public class GenerateTerrain : MonoBehaviour
             wallE.transform.localScale = new Vector3(zQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
             wallE.transform.Rotate(0, 90, 0);
 
-            GameObject roof = Instantiate(wallNormal, new Vector3(0, y_max + 10.0f, 0.0f), Quaternion.identity);
+            GameObject roof = Instantiate(wallNormal, new Vector3(0, y_max + 6.7f, 0.0f), Quaternion.identity);
             roof.transform.Rotate(90, 0, 0);
             roof.transform.localScale = new Vector3(xQuadScale, zQuadScale, 0.0f);
         }
