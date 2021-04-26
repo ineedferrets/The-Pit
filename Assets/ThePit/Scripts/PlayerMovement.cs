@@ -93,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
             {
 				GameLogicScript_Marko.Instance.GameOver();
 
+				GameLogicScript_Marko.Instance.RoomDataSyncController.SetGameCompleted(true);
 				GameLogicScript_Marko.Instance.RoomDataSyncController.SetSceneName("GameOverScene");
 				GameLogicScript_Marko.Instance.RoomDataSyncController.SetWinnerName(GameLogicScript_Marko.Instance.PlayerName);
 
