@@ -71,8 +71,6 @@ public class MainMenuScript_Marko : MonoBehaviour
     public void SetWinnerText(int client, string name)
     {
 
-        Debug.Log(client + " Winner:" + name);
-        Debug.Log("ClientID" + GameLogicScript_Marko.Instance.RoomDataSyncController.realtime.clientID);
         _winnerText.text = "The winner is " + name + ".";
         if (client == GameLogicScript_Marko.Instance.RoomDataSyncController.realtime.clientID)
         {
