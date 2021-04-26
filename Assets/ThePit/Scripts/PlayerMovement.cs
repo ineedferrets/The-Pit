@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
 		GameLogicScript_Marko.Instance.allPlayers.Add(this);
-
+		clientID = _realtimeView.ownerIDSelf;
 		UpdateCameraOwnership();
     }
 
