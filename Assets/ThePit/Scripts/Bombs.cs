@@ -10,6 +10,8 @@ public class Bombs : MonoBehaviour
     public float force;
 
     public GameObject particlesEffect;
+    public List<Renderer> renderers;
+    public Collider collider;
 
     public float countdown { get; private set; }
     bool hasExploded = false;
@@ -22,6 +24,14 @@ public class Bombs : MonoBehaviour
     void Start()
     {
         countdown = delay;
+        if (GetComponent<Renderer>() != null)
+            renderers.Add(GetComponent<Renderer>());
+        renderers.AddRange(GetComponentsInChildren<Renderer>());
+
+        if (GetComponent<Collider>() != null)
+            collider = GetComponent<Collider>();
+        else
+            collider = GetComponentInChildren<Collider>();
     }
 
     // Update is called once per frame
@@ -93,8 +103,9 @@ public class Bombs : MonoBehaviour
 
     private void setInvisible()
 	{
-        GetComponentInChildren<MeshRenderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
+        foreach (Renderer renderer in renderers)
+            renderer.enabled = false;
+        collider.enabled = false;
 	}
 }
 
