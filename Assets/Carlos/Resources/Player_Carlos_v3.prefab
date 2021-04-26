@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1816530282987107360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2124390697789390629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4375ee98f492a043aa2005625f0ffa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &144218329676497200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35,9 +22,9 @@ MonoBehaviour:
   - componentID: 1
     component: {fileID: 9036347980723348452}
   - componentID: 2
-    component: {fileID: 386210583950709927}
+    component: {fileID: 2685761803271738737}
   _childViews: []
---- !u!114 &386210583950709927
+--- !u!114 &2685761803271738737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,9 +33,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2124390697789390629}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 829f6dbd5072df44791d7a1b08b69c98, type: 3}
+  m_Script: {fileID: 11500000, guid: 75331a77c9c23e8409800e3616daef7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _meshRenderer: {fileID: 2124390697789390650}
 --- !u!114 &9036347980723348452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,5 +127,10 @@ PrefabInstance:
 --- !u!1 &2124390697789390629 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6510522086123694335, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+  m_PrefabInstance: {fileID: 5125482589546452954}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2124390697789390650 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6510522086123694304, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
   m_PrefabInstance: {fileID: 5125482589546452954}
   m_PrefabAsset: {fileID: 0}

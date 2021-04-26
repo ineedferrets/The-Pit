@@ -88,6 +88,12 @@ public class GenerateTerrain : MonoBehaviour
     void Start()
     {
 
+        GeneratePit();
+
+    }
+
+    public void GeneratePit()
+    {
         // Generate floor on start only when not in networking
         if (!_replicateInNetwork)
         {
@@ -124,8 +130,7 @@ public class GenerateTerrain : MonoBehaviour
         lightObject.active = true;
 
         //if(manager != null)
-            //manager.createPlayer(0, 3, 0);
-
+        //manager.createPlayer(0, 3, 0);
 
     }
 

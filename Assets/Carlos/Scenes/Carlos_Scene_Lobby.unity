@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _realtime: {fileID: 107524748}
-  PlayerPrefabName: Player_Marko3
+  PlayerPrefabName: Player_Carlos_v3
 --- !u!114 &107524746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2703,17 +2703,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9038bda1dccf74e8d84b8c6b1d7fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1249075487 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8893831335305336007, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
-  m_PrefabInstance: {fileID: 1698921932}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1249075483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 645863bd2f47686498e9660f674343dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1249075488 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8893831335305336006, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
@@ -3422,7 +3411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &1618296524
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3650,7 +3639,6 @@ MonoBehaviour:
   RoomDataSyncController: {fileID: 107524746}
   PlayerSyncController: {fileID: 0}
   MainMenuScript: {fileID: 596030577}
-  TerrainGenerator: {fileID: 1249075487}
   playerNames: []
 --- !u!4 &1635573097
 Transform:
@@ -4020,7 +4008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8893831335305336006, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8893831335305336006, guid: dba81c6c29759f248804eab88be9f3ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4687,7 +4675,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956836238}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -5.08, y: 0, z: 3.48}
+  m_LocalPosition: {x: -6.92, y: 0, z: 3.48}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 933890117}
