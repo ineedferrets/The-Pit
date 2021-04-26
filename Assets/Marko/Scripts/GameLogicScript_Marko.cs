@@ -17,6 +17,8 @@ public class GameLogicScript_Marko : MonoBehaviour
     public MainMenuScript_Marko MainMenuScript;
     public GenerateTerrain TerrainGenerator;
 
+    public GameObject StartCube;
+
     public PlayerMovement playerMovement;
 
     public List<PlayerMovement> allPlayers = new List<PlayerMovement>();
@@ -75,7 +77,6 @@ public class GameLogicScript_Marko : MonoBehaviour
 
     public void GoToGameScene()
     {
-        //GeneratePit();
 
         Vector3 position = new Vector3(-5, 5, -5);
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(2, 4), Random.Range(-2, 2));
@@ -99,6 +100,8 @@ public class GameLogicScript_Marko : MonoBehaviour
 
     public void GoToLobby()
     {
+
+        StartCube.SetActive(true);
 
         Vector3 position = new Vector3(-100, 1, 0);
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(0, 4), Random.Range(-2, 2));
