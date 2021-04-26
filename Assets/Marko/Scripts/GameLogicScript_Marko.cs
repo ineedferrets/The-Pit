@@ -65,7 +65,7 @@ public class GameLogicScript_Marko : MonoBehaviour
     public void GoToGameScene()
     {
 
-        Vector3 position = new Vector3(-5, 5, -5);
+        Vector3 position = new Vector3(25, 1, 0);
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(2, 4), Random.Range(-2, 2));
 
         PlayerSyncController.gameObject.transform.position = position + randomness;
@@ -78,7 +78,7 @@ public class GameLogicScript_Marko : MonoBehaviour
     public void GoToGameOverScene()
     {
 
-        Vector3 position = new Vector3(100, 1, 0);
+        Vector3 position = new Vector3(50, 1, 0);
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(0, 4), Random.Range(-2, 2));
         PlayerSyncController.gameObject.transform.position = position + randomness;
 
@@ -87,7 +87,7 @@ public class GameLogicScript_Marko : MonoBehaviour
     public void GoToLobby()
     {
 
-        Vector3 position = new Vector3(-100, 1, 0);
+        Vector3 position = new Vector3(0, 1, 0);
         Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(0, 4), Random.Range(-2, 2));
         PlayerSyncController.gameObject.transform.position = position + randomness;
  

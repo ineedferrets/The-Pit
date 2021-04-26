@@ -8,9 +8,6 @@ public class GenerateTerrain : MonoBehaviour
     public GameObject floorNormalBlock, floorBedrockBlock, treasure;
     public GameObject wallNormal;
 
-    public Light light;
-    public LightType lightType = LightType.Point;
-
     public int x_min, x_max, y_min, y_max, z_min, z_max;
     public int bedrockStartPoint, bedrockSecondLayer;
 
@@ -95,33 +92,14 @@ public class GenerateTerrain : MonoBehaviour
             GenerateFloor(_replicateInNetwork);
         }
 
-        float xQuadScale = 1.08f * (x_max - x_min);
-        float zQuadScale = 1.08f * (z_max - z_min);
-
         //for the walls N/S
-        GameObject wallN = Instantiate(wallNormal, new Vector3(0, 0, z_min - 0.6f), Quaternion.identity);
-        wallN.transform.localScale = new Vector3(xQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
-        GameObject wallS = Instantiate(wallNormal, new Vector3(0, 0, z_max + 0.6f), Quaternion.identity);
-        wallS.transform.localScale = new Vector3(xQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
+        GameObject wallN = Instantiate(wallNormal, new Vector3(0, 0, z_min - 1), Quaternion.identity);
+        GameObject wallS = Instantiate(wallNormal, new Vector3(0, 0, z_max + 1), Quaternion.identity);
 
-        GameObject wallW = Instantiate(wallNormal, new Vector3(x_min - 0.6f, 0, 0), Quaternion.identity);
-        wallW.transform.localScale = new Vector3(zQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
+        GameObject wallW = Instantiate(wallNormal, new Vector3(x_min - 1, 0, 0), Quaternion.identity);
         wallW.transform.Rotate(0, 90, 0);
-        GameObject wallE = Instantiate(wallNormal, new Vector3(x_max + 0.6f, 0, 0), Quaternion.identity);
-        wallE.transform.localScale = new Vector3(zQuadScale, wallN.transform.localScale.y, wallN.transform.localScale.z);
+        GameObject wallE = Instantiate(wallNormal, new Vector3(x_max + 1, 0, 0), Quaternion.identity);
         wallE.transform.Rotate(0, 90, 0);
-
-        GameObject roof = Instantiate(wallNormal, new Vector3(0, y_max + 10.0f, 0.0f), Quaternion.identity);
-        roof.transform.Rotate(90, 0, 0);
-        roof.transform.localScale = new Vector3(xQuadScale, zQuadScale, 0.0f);
-
-        GameObject lightObject = new GameObject("Light");
-        lightObject.transform.position = roof.transform.position - new Vector3(0.0f, 3.0f, 0.0f);
-        light = lightObject.AddComponent<Light>();
-        light.type = lightType;
-        light.intensity = 30;
-        lightObject.active = false;
-        lightObject.active = true;
 
         if(manager != null)
             manager.createPlayer(0, 3, 0);

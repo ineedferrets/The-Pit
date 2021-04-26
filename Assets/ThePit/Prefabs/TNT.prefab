@@ -78,11 +78,6 @@ MonoBehaviour:
   blastRadius: 5
   force: 1000
   particlesEffect: {fileID: 7191226723110465608, guid: 3138f07fdde376b45a6c72abebc7ee3e, type: 3}
-  renderers: []
-  collider: {fileID: 3233733826971516737}
-  explosionSoundFx: {fileID: 8300000, guid: 71f5613eea1ccf141b43b953a5b7aeea, type: 3}
-  fuseSoundFx: {fileID: 8300000, guid: 51f2bd4227ae75c49962f63c449344c4, type: 3}
-  source: {fileID: 8974088793195954779}
   destroyGameObjectDelay: 2
 --- !u!82 &8974088793195954779
 AudioSource:
@@ -302,7 +297,7 @@ Transform:
   m_GameObject: {fileID: 7798035615202842362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.841, z: -0.119}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.01}
   m_Children: []
   m_Father: {fileID: 2112282436240947086}
   m_RootOrder: 1
@@ -2345,7 +2340,7 @@ ParticleSystem:
         m_RotationOrder: 4
     inWorldSpace: 0
   InheritVelocityModule:
-    enabled: 1
+    enabled: 0
     m_Mode: 0
     m_Curve:
       serializedVersion: 2
@@ -4202,11 +4197,11 @@ ParticleSystem:
   TrailModule:
     enabled: 0
     mode: 0
-    ratio: 0.1
+    ratio: 1
     lifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4261,7 +4256,7 @@ ParticleSystem:
     ribbonCount: 1
     shadowBias: 0.5
     worldSpace: 0
-    dieWithParticles: 0
+    dieWithParticles: 1
     sizeAffectsWidth: 1
     sizeAffectsLifetime: 0
     inheritParticleColor: 1
@@ -5054,15 +5049,15 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 1
-  m_SortMode: 3
+  m_RenderMode: 0
+  m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 2
-  m_CameraVelocityScale: 1
-  m_VelocityScale: 0.1
-  m_LengthScale: 4
+  m_MaxParticleSize: 0.5
+  m_CameraVelocityScale: 0
+  m_VelocityScale: 0
+  m_LengthScale: 2
   m_SortingFudge: 0
-  m_NormalDirection: 0
+  m_NormalDirection: 1
   m_ShadowBias: 0
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
