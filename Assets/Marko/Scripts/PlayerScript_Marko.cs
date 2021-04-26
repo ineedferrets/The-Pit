@@ -51,9 +51,6 @@ public class PlayerScript_Marko : MonoBehaviour
         GameLogicScript_Marko.Instance.PlayerSyncController = player.GetComponent<PlayerSyncController>();
         GameLogicScript_Marko.Instance.RoomDataSyncController.IncreaseNumberOfPlayers();
 
-
-        //LevelManagerScript_Marko.Instance.RoomDataSyncController.AddPlayerName(GameLogicScript_Marko.Instance.PlayerName);
-
     }
 
 
