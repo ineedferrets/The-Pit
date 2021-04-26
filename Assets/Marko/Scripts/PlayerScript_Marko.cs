@@ -27,12 +27,13 @@ public class PlayerScript_Marko : MonoBehaviour
 
     private void DidConnectToRoom(Realtime realtime)
     {
-        
-        Vector3 position = new Vector3(Random.Range(-2f, 2f), Random.Range(1,5), Random.Range(-2,2));
-        
+
+        Vector3 position = new Vector3(-100, 1, 0);
+        Vector3 randomness = new Vector3(Random.Range(-2f, 2f), Random.Range(0, 4), Random.Range(-2, 2));
+
         // Instantiate the CubePlayer for this client once we've successfully connected to the room
         GameObject player = Realtime.Instantiate("Player_Marko2",                 // Prefab name
-                            position: position,          // Start 1 meter in the air
+                            position: position + randomness,          // Start 1 meter in the air
                             rotation: Quaternion.identity, // No rotation
                        ownedByClient: true,                // Make sure the RealtimeView on this prefab is owned by this client
             preventOwnershipTakeover: true,                // Prevent other clients from calling RequestOwnership() on the root RealtimeView.

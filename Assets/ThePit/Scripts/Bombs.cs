@@ -10,6 +10,11 @@ public class Bombs : MonoBehaviour
     public float force;
 
     public GameObject particlesEffect;
+    public List<Renderer> renderers;
+    public Collider collider;
+    public AudioClip explosionSoundFx;
+    public AudioClip fuseSoundFx;
+    public AudioSource source;
 
     public float countdown { get; private set; }
     bool hasExploded = false;
@@ -22,6 +27,21 @@ public class Bombs : MonoBehaviour
     void Start()
     {
         countdown = delay;
+        if (GetComponent<Renderer>() != null)
+            renderers.Add(GetComponent<Renderer>());
+        renderers.AddRange(GetComponentsInChildren<Renderer>());
+
+        if (GetComponent<Collider>() != null)
+            collider = GetComponent<Collider>();
+        else
+            collider = GetComponentInChildren<Collider>();
+
+        if (bombType == BombType.TNT)
+		{
+            source.clip = fuseSoundFx;
+            source.loop = true;
+            source.Play();
+		}
     }
 
     // Update is called once per frame
@@ -34,13 +54,11 @@ public class Bombs : MonoBehaviour
 
         if (bombType == BombType.Claymore && countdown > 0.9f && countdown < 1.1f)
 		{
-            GetComponent<AudioSource>().Play();
+            source.PlayOneShot(explosionSoundFx);
 		}
 
         if (countdown <= 0f && !hasExploded)
         {
-            if (bombType == BombType.TNT)
-                GetComponent<AudioSource>().Play();
 
             Explode();
             hasExploded = true;
@@ -57,6 +75,12 @@ public class Bombs : MonoBehaviour
     {
         //Show effect
         Instantiate(particlesEffect, transform.position, transform.rotation);
+
+        if (bombType == BombType.TNT)
+        {
+            source.Stop();
+            source.PlayOneShot(explosionSoundFx);
+        }
 
         //Get nearby objects
         Collider[] objects = Physics.OverlapSphere(transform.position, blastRadius);
@@ -93,8 +117,9 @@ public class Bombs : MonoBehaviour
 
     private void setInvisible()
 	{
-        GetComponentInChildren<MeshRenderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
+        foreach (Renderer renderer in renderers)
+            renderer.enabled = false;
+        collider.enabled = false;
 	}
 }
 
