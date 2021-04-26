@@ -87,7 +87,7 @@ public class PickaxeBehaviour : MonoBehaviour
                 if (block.blockType == BlockType.Treasure && !player.holdingTreasure)
                 {
                     block.AddHealth(-block.health);
-                    player.holdingTreasure = true;
+                    player.TakeTreasure();
                 }
                 else
                 {

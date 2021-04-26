@@ -16,7 +16,11 @@ public class PlayerMovement : MonoBehaviour
 
 	private bool isJumping = false;
 
+	private float countdown = 10;
+	private bool timerIsRunning = false;
+
 	public bool holdingTreasure = false;
+	public GameObject treasureLight;
 
 	private void Awake()
 	{
@@ -69,12 +73,22 @@ public class PlayerMovement : MonoBehaviour
 	}
 	void Update()
     {
-		if (holdingTreasure)
+		if (timerIsRunning)
         {
-			Debug.Log("Holding it");
+			if (countdown > 0)
+            {
+				countdown -= Time.deltaTime;
+            }
+            else
+            {
+				//TODO: Make actual win
+				Debug.Log("Win");
+				timerIsRunning = false;
+				countdown = 0;
+            }
         }
 
-		Vector3 direction = calculateMovementDirection(playerInput, playerCamera);
+        Vector3 direction = calculateMovementDirection(playerInput, playerCamera);
 
 		if (direction != Vector3.zero)
 		{
@@ -121,6 +135,20 @@ public class PlayerMovement : MonoBehaviour
 
 		Vector3 cameraCorrectedDirection = Quaternion.AngleAxis(camera.transform.rotation.eulerAngles.x, Vector3.up) * direction;
 		return cameraCorrectedDirection;
+	}
+
+	public void LoseTreasure()
+    {
+		timerIsRunning = false;
+		holdingTreasure = false;
+		treasureLight.GetComponent<Light>().enabled = false;
+	}
+
+	public void TakeTreasure()
+    {
+		timerIsRunning = true;
+		holdingTreasure = true;
+		treasureLight.GetComponent<Light>().enabled = true;
 	}
 
 }

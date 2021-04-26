@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: speed
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 3606870760752070188, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3836964882776694936, guid: a6ee95a482dc9aa4ba4b720b30b34847, type: 3}
       propertyPath: cutoutSize
       value: 0.5
