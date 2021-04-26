@@ -108,9 +108,9 @@ public class GameLogicScript_Marko : MonoBehaviour
         MainMenuScript.ShowUI();
     }
 
-    public void GeneratePit()
+    public void GeneratePit(bool reset = false)
     {
-        TerrainGenerator.GeneratePit();
+        TerrainGenerator.GeneratePit(reset: false);
     }
 
     public void SetGameCompleted(bool value)
